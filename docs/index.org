@@ -1,0 +1,7 @@
+#+TITLE: Notes on ISLR
+#+AUTHOR: Soham Pal
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+HTML_HEAD: <style>ol#al { list-style-type: lower-alpha; }</style>
+#+HTML_HEAD: <style> #content{max-width:900px;}</style>
+
+* [[file:chapter2.html][Chapter 2]]
