@@ -1,30 +1,29 @@
 # -*- org-src-preserve-indentation: t; org-edit-src-content: 0; -*-
 #+TITLE: Statistical Learning
-#+OPTIONS: num:nil author:nil html-postamble:nil
-#+PROPERTY: header-args :tangle python/chapter2.py :python /home/soham/.cache/pypoetry/virtualenvs/islr-c-pzYQtI-py3.8/bin/python :session py :results output replace :exports both :eval no-export
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
-#+HTML_HEAD: <style>ol#al { list-style-type: lower-alpha; }</style>
-#+HTML_HEAD: <style> #content{max-width:900px;}</style>
+#+OPTIONS: num:nil html-postamble:nil
+#+PROPERTY: header-args :tangle python/chapter3.py :jupyter-python :session py :kernel .islr-venv :async yes :results output replace :exports both :eval no-export
+# #+PROPERTY: header-args :tangle python/chapter2.py :python /home/soham/Documents/islr/.islr-venv/bin/python :session py :results output replace :exports both :eval no-export
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="static/css/simple.css"/>
 
-* Notes                                                            :noexport:
+* Notes
 
  #+BEGIN_QUOTE
  Inference is what statistics is mostly about, prediction is what machine
- learning is mostly about. ---[[http://brenocon.com/blog/2008/12/statistics-vs-machine-learning-fight/][Statistics vs Machine Learning, fight!]]
+ learning is mostly about. -- [[http://brenocon.com/blog/2008/12/statistics-vs-machine-learning-fight/][Statistics vs Machine Learning, fight!]]
  #+END_QUOTE
 
 ** Models
-- Parametric models reduce the problem of estimating /f/ to estimating a few
+- Parametric models reduce the problem of estimating \(f\) to estimating a few
   parameters. Easy to interpret, but might not fit the data well.
-- Non-parametric models do not assume any particular functional form for /f/.
+- Non-parametric models do not assume any particular functional form for \(f\).
   Usually fit the data better than parametric models, given that there are large
   number of observations, much larger than that required by parametric models.
 
 ** Learning
-- Supervised learning: For each observation /i/ of predictor measurements /x_i/
-  there is an associated response measurement /y_i/.
-- Unsupervised learning: For each observation /i/ there is a vector of
-  measurements /x_i/ but no associated response measurement.
+- Supervised learning: For each observation \(i\) of predictor measurements \(x_i\)
+  there is an associated response measurement \(y_i\).
+- Unsupervised learning: For each observation \(i\) there is a vector of
+  measurements \(x_i\) but no associated response measurement.
 - Semi-supervised learning: Response measurements are available for some of the
   observations but not all.
 
@@ -45,7 +44,7 @@ There is no free lunch in statistics.
   $\hat{f}$ to the data, is typically used for classification problems.
 - Test error rate is minimized by the /Bayes Classifier/.
 - /Cross-validation/ is used to estimate test MSE using training data.
-- /Variance/ is the change in the estimate $\hat{f}$ of /f/ due to change in
+- /Variance/ is the change in the estimate \(\hat{f}\) of \(f\) due to change in
   training data.
 - /Bias/ is the error due to approximating a complicated problem with a simpler
   model.
@@ -79,7 +78,7 @@ c) The response is qualitative. This is a regression problem. We are interested
 ** Question 3
 The sketches are as follows:
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC jupyter-python :results output graphics :file img/bv-decomp.png
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -105,9 +104,7 @@ ax.legend(loc="upper center")
 
 sns.despine()
 
-plt.savefig("img/bv-decomp.png", dpi=90)
-plt.clf() # To clear the figure
-print("img/bv-decomp.png")
+fig.savefig("img/bv-decomp.png", dpi=90)
 #+END_SRC
 
 #+RESULTS:
@@ -224,7 +221,7 @@ non-linearities, because there will be very few neighbors.
 ** Question 8
 *** The =College= data set
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 college = pd.read_csv("data/College.csv")
 print(tabulate(college.head(), college.columns, tablefmt="orgtbl"))
 #+END_SRC
@@ -240,7 +237,7 @@ print(tabulate(college.head(), college.columns, tablefmt="orgtbl"))
 
 *** College names as index
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 college.set_index("Unnamed: 0", inplace=True)
 college.index.name = "Names"
 
@@ -259,47 +256,43 @@ print(tabulate(college.head(), headers, tablefmt="orgtbl"))
 
 *** Summary of data
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(tabulate(college.describe(), college.columns, tablefmt="orgtbl"))
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-| Private   |     Apps |   Accept |   Enroll |   Top10perc |   Top25perc |   F.Undergrad |   P.Undergrad |   Outstate |   Room.Board |    Books |   Personal |      PhD |   Terminal |   S.F.Ratio |   perc.alumni |   Expend |   Grad.Rate |
-|-----------+----------+----------+----------+-------------+-------------+---------------+---------------+------------+--------------+----------+------------+----------+------------+-------------+---------------+----------+-------------|
-| count     |   777    |   777    |  777     |    777      |    777      |        777    |       777     |     777    |       777    |  777     |    777     | 777      |   777      |   777       |      777      |   777    |    777      |
-| mean      |  3001.64 |  2018.8  |  779.973 |     27.5586 |     55.7967 |       3699.91 |       855.299 |   10440.7  |      4357.53 |  549.381 |   1340.64  |  72.6602 |    79.7027 |    14.0897  |       22.7439 |  9660.17 |     65.4633 |
-| std       |  3870.2  |  2451.11 |  929.176 |     17.6404 |     19.8048 |       4850.42 |      1522.43  |    4023.02 |      1096.7  |  165.105 |    677.071 |  16.3282 |    14.7224 |     3.95835 |       12.3918 |  5221.77 |     17.1777 |
-| min       |    81    |    72    |   35     |      1      |      9      |        139    |         1     |    2340    |      1780    |   96     |    250     |   8      |    24      |     2.5     |        0      |  3186    |     10      |
-| 25%       |   776    |   604    |  242     |     15      |     41      |        992    |        95     |    7320    |      3597    |  470     |    850     |  62      |    71      |    11.5     |       13      |  6751    |     53      |
-| 50%       |  1558    |  1110    |  434     |     23      |     54      |       1707    |       353     |    9990    |      4200    |  500     |   1200     |  75      |    82      |    13.6     |       21      |  8377    |     65      |
-| 75%       |  3624    |  2424    |  902     |     35      |     69      |       4005    |       967     |   12925    |      5050    |  600     |   1700     |  85      |    92      |    16.5     |       31      | 10830    |     78      |
-| max       | 48094    | 26330    | 6392     |     96      |    100      |      31643    |     21836     |   21700    |      8124    | 2340     |   6800     | 103      |   100      |    39.8     |       64      | 56233    |    118      |
-#+end_example
+: | Private   |     Apps |   Accept |   Enroll |   Top10perc |   Top25perc |   F.Undergrad |   P.Undergrad |   Outstate |   Room.Board |    Books |   Personal |      PhD |   Terminal |   S.F.Ratio |   perc.alumni |   Expend |   Grad.Rate |
+: |-----------+----------+----------+----------+-------------+-------------+---------------+---------------+------------+--------------+----------+------------+----------+------------+-------------+---------------+----------+-------------|
+: | count     |   777    |   777    |  777     |    777      |    777      |        777    |       777     |     777    |       777    |  777     |    777     | 777      |   777      |   777       |      777      |   777    |    777      |
+: | mean      |  3001.64 |  2018.8  |  779.973 |     27.5586 |     55.7967 |       3699.91 |       855.299 |   10440.7  |      4357.53 |  549.381 |   1340.64  |  72.6602 |    79.7027 |    14.0897  |       22.7439 |  9660.17 |     65.4633 |
+: | std       |  3870.2  |  2451.11 |  929.176 |     17.6404 |     19.8048 |       4850.42 |      1522.43  |    4023.02 |      1096.7  |  165.105 |    677.071 |  16.3282 |    14.7224 |     3.95835 |       12.3918 |  5221.77 |     17.1777 |
+: | min       |    81    |    72    |   35     |      1      |      9      |        139    |         1     |    2340    |      1780    |   96     |    250     |   8      |    24      |     2.5     |        0      |  3186    |     10      |
+: | 25%       |   776    |   604    |  242     |     15      |     41      |        992    |        95     |    7320    |      3597    |  470     |    850     |  62      |    71      |    11.5     |       13      |  6751    |     53      |
+: | 50%       |  1558    |  1110    |  434     |     23      |     54      |       1707    |       353     |    9990    |      4200    |  500     |   1200     |  75      |    82      |    13.6     |       21      |  8377    |     65      |
+: | 75%       |  3624    |  2424    |  902     |     35      |     69      |       4005    |       967     |   12925    |      5050    |  600     |   1700     |  85      |    92      |    16.5     |       31      | 10830    |     78      |
+: | max       | 48094    | 26330    | 6392     |     96      |    100      |      31643    |     21836     |   21700    |      8124    | 2340     |   6800     | 103      |   100      |    39.8     |       64      | 56233    |    118      |
 
 *** Scatter plot matrix
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC jupyter-python :results output graphics :file img/college_scatter.png
 plot_columns = list(college.columns)[:10]
 plt.close('all')
 spm = sns.pairplot(college[plot_columns])
 spm.fig.set_size_inches(12, 12)
 spm.savefig("img/college_scatter.png", dpi=90)
-print("img/college_scatter.png")
 #+END_SRC
 
 #+RESULTS:
 [[file:img/college_scatter.png]]
+
 *** Box plots
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC jupyter-python :results output graphics :file img/college_outstate_private.png
 plt.close('all')
 bp1 = sns.boxplot(x="Private", y="Outstate", data=college)
 sns.despine()
 plt.tight_layout()
 bp1.get_figure().savefig("img/college_outstate_private.png", dpi=90)
-plt.clf()
-print("img/college_outstate_private.png")
 #+END_SRC
 
 #+RESULTS:
@@ -307,7 +300,7 @@ print("img/college_outstate_private.png")
 
 *** Elite universities
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 college["Elite"] = college["Top10perc"].apply(lambda x: "Yes" if x > 50 else "No")
 print(college["Elite"].value_counts())
 #+END_SRC
@@ -320,14 +313,12 @@ print(college["Elite"].value_counts())
 There are 78 elite universities, where more than 50% of their students come from
 the top 10% of their high school classes.
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC jupyter-python :results output graphics :file img/college_outstate_elite.png
 plt.close('all')
 bp2 = sns.boxplot(x="Elite", y="Outstate", data=college)
 sns.despine()
 plt.tight_layout()
 bp2.get_figure().savefig("img/college_outstate_elite.png", dpi=90)
-plt.clf()
-print("img/college_outstate_elite.png")
 #+END_SRC
 
 #+RESULTS:
@@ -338,12 +329,12 @@ print("img/college_outstate_elite.png")
 We are going to produce histograms for some of the quantitative variables with
 differing number of bins. We first need to bin these quantitative variables.
 
-#+BEGIN_SRC python :results output :exports both
+#+BEGIN_SRC jupyter-python :results output :exports both
 print(college.info())
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+BEGIN_EXAMPLE
 <class 'pandas.core.frame.DataFrame'>
 Index: 777 entries, Abilene Christian University to York College of Pennsylvania
 Data columns (total 19 columns):
@@ -371,13 +362,13 @@ Data columns (total 19 columns):
 dtypes: float64(1), int64(16), object(2)
 memory usage: 141.4+ KB
 None
-#+end_example
+#+END_EXAMPLE
 
 We see that there are 17 quantitative variables. For this activity I will choose
 =Enroll=, =Books=, =PhD=, and =Grad.Rate= as the quantitative variables to plot.
 To keep things simple we will bin these variables in to either 3 bins or 5 bins.
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC jupyter-python :results output graphics :file img/college_hist.png
 cut_bins3 = ["Low", "Medium", "High"]
 cut_bins5 = ["Very Low", "Low", "Medium", "High", "Very High"]
 college["Enroll2"] = pd.cut(college["Enroll"], 5, labels=cut_bins5)
@@ -392,11 +383,14 @@ sns.countplot(college["Books2"], ax=axs[0, 1])
 sns.countplot(college["PhD2"], ax=axs[1, 0])
 sns.countplot(college["Grad.Rate2"], ax=axs[1, 1])
 sns.despine()
-plt.tight_layout()
-plt.savefig("img/college_hist.png", dpi=90)
-plt.clf()
-plt.close()
-print("img/college_hist.png")
+
+axs[0, 0].set_xticklabels(axs[0, 0].get_xticklabels(), rotation=40, ha="right")
+axs[0, 1].set_xticklabels(axs[0, 1].get_xticklabels(), rotation=40, ha="right")
+axs[1, 0].set_xticklabels(axs[1, 0].get_xticklabels(), rotation=40, ha="right")
+axs[1, 1].set_xticklabels(axs[1, 1].get_xticklabels(), rotation=40, ha="right")
+
+plt.subplots_adjust(wspace=0.4, hspace=1)
+fig.savefig("img/college_hist.png", dpi=90)
 #+END_SRC
 
 #+RESULTS:
@@ -405,14 +399,14 @@ print("img/college_hist.png")
 ** Question 9
 *** Predictors of the =Auto= data set
 
-#+BEGIN_SRC python :results output :exports both
+#+BEGIN_SRC jupyter-python
 auto = pd.read_csv("data/Auto.csv")
 auto.dropna(inplace=True)
 print(auto.info())
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+BEGIN_EXAMPLE
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 397 entries, 0 to 396
 Data columns (total 9 columns):
@@ -430,14 +424,14 @@ Data columns (total 9 columns):
 dtypes: float64(3), int64(4), object(2)
 memory usage: 31.0+ KB
 None
-#+end_example
+#+END_EXAMPLE
 
 We see that there are two qualitative predictors, =horsepower= and =name=. While
 =name= is expected to be qualitative, =horsepower= should presumably be
 quantitative. We should check the data in the =horsepower= column and see if we
 can convert that to a numeric form.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(auto["horsepower"].unique())
 #+END_SRC
 
@@ -455,14 +449,14 @@ So the reason that =horsepower= is not numeric is because there are some missing
 values which are represented by "?". We need to remove the rows containing the
 missing data, and then make this column numeric.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 auto.drop(auto[auto.horsepower == "?"].index, inplace=True)
 auto["horsepower"] = pd.to_numeric(auto["horsepower"])
 print(auto.info())
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+BEGIN_EXAMPLE
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 392 entries, 0 to 396
 Data columns (total 9 columns):
@@ -480,13 +474,13 @@ Data columns (total 9 columns):
 dtypes: float64(3), int64(5), object(1)
 memory usage: 30.6+ KB
 None
-#+end_example
+#+END_EXAMPLE
 
 Now only =name= is the qualitative predictor.
 
 *** Range of quantitative predictors
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 from pprint import pprint
 
 quant = auto.select_dtypes(exclude="object").columns
@@ -506,7 +500,7 @@ pprint(ranges)
 
 *** Mean and standard deviation of quantitative predictors
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 msd = {col: {"mean": round(np.mean(auto[col]), 2), "std": round(np.std(auto[col]), 2)} for col in quant}
 pprint(msd)
 
@@ -529,7 +523,7 @@ pprint(msd)
 We remove the 10^th through 85^th observations, and then calculate the ranges,
 mean and standard deviation of the remaining data set.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 auto2 = auto.drop(auto.index[10:85])
 
 ranges = {col: (min(auto2[col]), max(auto2[col])) for col in quant}
@@ -546,7 +540,7 @@ pprint(ranges)
 :  'weight': (1649, 4997),
 :  'year': (70, 82)}
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 msd = {col: {"mean": round(np.mean(auto[col]), 2), "std": round(np.std(auto[col]), 2)} for col in quant}
 pprint(msd)
 #+END_SRC
@@ -563,13 +557,11 @@ pprint(msd)
 
 *** Pair plots
 
-#+BEGIN_SRC python :results output file
+#+BEGIN_SRC jupyter-python :results output graphics :file img/auto_pair.png
 plt.close('all')
 spm = sns.pairplot(auto[["mpg", "horsepower", "weight", "displacement", "acceleration"]])
 spm.fig.set_size_inches(6, 6)
 spm.savefig("img/auto_pair.png")
-plt.clf()
-print("img/auto_pair.png")
 #+END_SRC
 
 #+RESULTS:
@@ -585,9 +577,10 @@ interpret from these plots.
 
 As we observed earlier that =mpg= has a linear relation with =horsepower=,
 =weight=, and =displacement=. We can therefore use that to predict =mpg=.
+
 ** Question 10
 *** Boston data set
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 from sklearn.datasets import load_boston
 
 lb = load_boston()
@@ -605,12 +598,12 @@ print(tabulate(boston.head(), boston.columns, tablefmt="orgtbl"))
 : |  3 | 0.03237 |    0 |    2.18 |      0 | 0.458 | 6.998 |  45.8 | 6.0622 |     3 |   222 |      18.7 | 394.63 |    2.94 |   33.4 |
 : |  4 | 0.06905 |    0 |    2.18 |      0 | 0.458 | 7.147 |  54.2 | 6.0622 |     3 |   222 |      18.7 | 396.9  |    5.33 |   36.2 |
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(lb['DESCR'])
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+BEGIN_EXAMPLE
 .. _boston_dataset:
 
 Boston house prices dataset
@@ -661,7 +654,7 @@ problems.
 
    - Belsley, Kuh & Welsch, 'Regression diagnostics: Identifying Influential Data and Sources of Collinearity', Wiley, 1980. 244-261.
    - Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.
-#+end_example
+#+END_EXAMPLE
 
 There are 506 rows, and 14 columns in this data set. The last column shows the
 median value of owner-occupied homes in Boston suburbs, and the other columns
@@ -671,19 +664,15 @@ suburbs.
 
 *** Pair plots
 
-#+BEGIN_SRC python :results output file
+#+BEGIN_SRC jupyter-python :results output graphics :file img/boston_scatter.png
 plt.close("all")
 spm = sns.pairplot(boston, plot_kws = {'s': 10})
 spm.fig.set_size_inches(12, 12)
 spm.savefig("img/boston_scatter.png", dpi=90)
-plt.clf()
-print("img/boston_scatter.png")
 #+END_SRC
 
 #+RESULTS:
 [[file:img/boston_scatter.png]]
-
-#+RESULTS:2[[file:img/boston_scatter.png]]
 
 Looking at the plots we can easily identify that the median value has a positive
 linear correlation with the number of rooms (=RM=), and a negative, possibly
@@ -696,55 +685,51 @@ predictors.
 
 *** Association with per capita crime rate
 
-#+BEGIN_SRC python
-boston.corrwith(boston["CRIM"]).sort_values()
+#+BEGIN_SRC jupyter-python
+print(boston.corrwith(boston["CRIM"]).sort_values())
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-MEDV      -0.39
-B         -0.39
-DIS       -0.38
-RM        -0.22
-ZN        -0.20
-CHAS      -0.06
-PTRATIO    0.29
-AGE        0.35
-INDUS      0.41
-NOX        0.42
-LSTAT      0.46
-TAX        0.58
-RAD        0.63
-CRIM       1.00
+#+BEGIN_EXAMPLE
+MEDV      -0.388305
+B         -0.385064
+DIS       -0.379670
+RM        -0.219247
+ZN        -0.200469
+CHAS      -0.055892
+PTRATIO    0.289946
+AGE        0.352734
+INDUS      0.406583
+NOX        0.420972
+LSTAT      0.455621
+TAX        0.582764
+RAD        0.625505
+CRIM       1.000000
 dtype: float64
-#+end_example
+#+END_EXAMPLE
 
 From the correlation values we can expect =RAD= (accessibility to radial
 highways) and =TAX= (property tax rates) to be associated with the per capita
 crime rate.
 
-#+BEGIN_SRC python :results output file
+#+BEGIN_SRC jupyter-python :results output graphics :file img/boston_crim_tax.png
 plt.close("all")
 sns.scatterplot(x="TAX", y="CRIM", data=boston)
 sns.despine()
 plt.tight_layout()
 plt.savefig("img/boston_crim_tax.png", dpi=90)
-plt.clf()
-print("img/boston_crim_tax.png")
 #+END_SRC
 
 #+RESULTS:
 [[file:img/boston_crim_tax.png]]
 
 
-#+BEGIN_SRC python :results output file
+#+BEGIN_SRC jupyter-python :results output graphics :file img/boston_crim_rad.png
 plt.close("all")
 sns.boxplot(x="RAD", y="CRIM", data=boston)
 sns.despine()
 plt.tight_layout()
 plt.savefig("img/boston_crim_rad.png", dpi=90)
-plt.clf()
-print("img/boston_crim_rad.png")
 #+END_SRC
 
 #+RESULTS:
@@ -755,13 +740,13 @@ tax rate is \(~ 660\) or the index of accessibility to radial highways is 24.
 
 *** Predictor ranges
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 ranges = {col: (boston[col].min(), boston[col].max()) for col in boston.columns[:-1]}
 pprint(ranges)
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+BEGIN_EXAMPLE
 {'AGE': (2.9, 100.0),
  'B': (0.32, 396.9),
  'CHAS': (0.0, 1.0),
@@ -775,13 +760,13 @@ pprint(ranges)
  'RM': (3.561, 8.78),
  'TAX': (187.0, 711.0),
  'ZN': (0.0, 100.0)}
-#+end_example
+#+END_EXAMPLE
 
 The per capita crime rate varies a lot across Boston suburbs, from a low of
 0.00632 to a high of 88.9762. This shows that there are suburbs that have
 particularly high crime rates:
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 high_crime = boston.nlargest(5, "CRIM")
 print(tabulate(high_crime, boston.columns, tablefmt="orgtbl"))
 #+END_SRC
@@ -798,7 +783,7 @@ print(tabulate(high_crime, boston.columns, tablefmt="orgtbl"))
 Similarly the tax rate also shows considerable variation from 187.0 to 711.0.
 There are suburbs with particularly high tax rates.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 high_tax = boston.nlargest(5, "TAX")
 print(tabulate(high_tax, boston.columns, tablefmt="orgtbl"))
 #+END_SRC
@@ -818,7 +803,7 @@ pupil-to-teacher ratio.
 
 *** Suburbs bounding the Charles river
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(boston["CHAS"].value_counts())
 #+END_SRC
 
@@ -831,7 +816,7 @@ There are 35 suburbs that bound the Charles river.
 
 *** Median pupil to teacher ratio
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(boston["PTRATIO"].median())
 #+END_SRC
 
@@ -842,7 +827,7 @@ The median pupil-to-teacher ratio is 19.5.
 
 *** Suburb with lowest median value
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(tabulate(boston.nsmallest(1, "MEDV"), boston.columns, tablefmt="orgtbl"))
 #+END_SRC
 
@@ -860,23 +845,21 @@ earlier we can see that this suburb has:
 - relatively high proportion of low-status people,
 - old houses.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 print(tabulate(boston.describe(), boston.columns, tablefmt="orgtbl"))
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-|       |       CRIM |       ZN |     INDUS |       CHAS |        NOX |         RM |      AGE |       DIS |       RAD |     TAX |   PTRATIO |        B |     LSTAT |     MEDV |
-|-------+------------+----------+-----------+------------+------------+------------+----------+-----------+-----------+---------+-----------+----------+-----------+----------|
-| count | 506        | 506      | 506       | 506        | 506        | 506        | 506      | 506       | 506       | 506     | 506       | 506      | 506       | 506      |
-| mean  |   3.61352  |  11.3636 |  11.1368  |   0.06917  |   0.554695 |   6.28463  |  68.5749 |   3.79504 |   9.54941 | 408.237 |  18.4555  | 356.674  |  12.6531  |  22.5328 |
-| std   |   8.60155  |  23.3225 |   6.86035 |   0.253994 |   0.115878 |   0.702617 |  28.1489 |   2.10571 |   8.70726 | 168.537 |   2.16495 |  91.2949 |   7.14106 |   9.1971 |
-| min   |   0.00632  |   0      |   0.46    |   0        |   0.385    |   3.561    |   2.9    |   1.1296  |   1       | 187     |  12.6     |   0.32   |   1.73    |   5      |
-| 25%   |   0.082045 |   0      |   5.19    |   0        |   0.449    |   5.8855   |  45.025  |   2.10018 |   4       | 279     |  17.4     | 375.377  |   6.95    |  17.025  |
-| 50%   |   0.25651  |   0      |   9.69    |   0        |   0.538    |   6.2085   |  77.5    |   3.20745 |   5       | 330     |  19.05    | 391.44   |  11.36    |  21.2    |
-| 75%   |   3.67708  |  12.5    |  18.1     |   0        |   0.624    |   6.6235   |  94.075  |   5.18843 |  24       | 666     |  20.2     | 396.225  |  16.955   |  25      |
-| max   |  88.9762   | 100      |  27.74    |   1        |   0.871    |   8.78     | 100      |  12.1265  |  24       | 711     |  22       | 396.9    |  37.97    |  50      |
-#+end_example
+: |       |       CRIM |       ZN |     INDUS |       CHAS |        NOX |         RM |      AGE |       DIS |       RAD |     TAX |   PTRATIO |        B |     LSTAT |     MEDV |
+: |-------+------------+----------+-----------+------------+------------+------------+----------+-----------+-----------+---------+-----------+----------+-----------+----------|
+: | count | 506        | 506      | 506       | 506        | 506        | 506        | 506      | 506       | 506       | 506     | 506       | 506      | 506       | 506      |
+: | mean  |   3.61352  |  11.3636 |  11.1368  |   0.06917  |   0.554695 |   6.28463  |  68.5749 |   3.79504 |   9.54941 | 408.237 |  18.4555  | 356.674  |  12.6531  |  22.5328 |
+: | std   |   8.60155  |  23.3225 |   6.86035 |   0.253994 |   0.115878 |   0.702617 |  28.1489 |   2.10571 |   8.70726 | 168.537 |   2.16495 |  91.2949 |   7.14106 |   9.1971 |
+: | min   |   0.00632  |   0      |   0.46    |   0        |   0.385    |   3.561    |   2.9    |   1.1296  |   1       | 187     |  12.6     |   0.32   |   1.73    |   5      |
+: | 25%   |   0.082045 |   0      |   5.19    |   0        |   0.449    |   5.8855   |  45.025  |   2.10018 |   4       | 279     |  17.4     | 375.377  |   6.95    |  17.025  |
+: | 50%   |   0.25651  |   0      |   9.69    |   0        |   0.538    |   6.2085   |  77.5    |   3.20745 |   5       | 330     |  19.05    | 391.44   |  11.36    |  21.2    |
+: | 75%   |   3.67708  |  12.5    |  18.1     |   0        |   0.624    |   6.6235   |  94.075  |   5.18843 |  24       | 666     |  20.2     | 396.225  |  16.955   |  25      |
+: | max   |  88.9762   | 100      |  27.74    |   1        |   0.871    |   8.78     | 100      |  12.1265  |  24       | 711     |  22       | 396.9    |  37.97    |  50      |
 
 We in fact see that for this suburb the crime rate, the nitric oxides
 concentration, and the proportion of low-status people are higher than their
@@ -885,7 +868,7 @@ tax rate are equal to their respective 75% quantile.
 
 *** Average number of rooms
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 rm7 = np.sum(boston["RM"] > 7)
 rm8 = np.sum(boston["RM"] > 8)
 print(rm7, rm8)
@@ -897,24 +880,22 @@ print(rm7, rm8)
 There are 64 suburbs which average more than seven rooms per dwelling and 13
 suburbs which average more than eight rooms per dwelling.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python
 eight_rooms = boston[boston["RM"] > 8]
 print(tabulate(eight_rooms.describe(), boston.columns, tablefmt="orgtbl"))
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-|       |      CRIM |      ZN |    INDUS |      CHAS |        NOX |        RM |     AGE |      DIS |      RAD |     TAX |   PTRATIO |        B |    LSTAT |     MEDV |
-|-------+-----------+---------+----------+-----------+------------+-----------+---------+----------+----------+---------+-----------+----------+----------+----------|
-| count | 13        | 13      | 13       | 13        | 13         | 13        | 13      | 13       | 13       |  13     |  13       |  13      | 13       | 13       |
-| mean  |  0.718795 | 13.6154 |  7.07846 |  0.153846 |  0.539238  |  8.34854  | 71.5385 |  3.43019 |  7.46154 | 325.077 |  16.3615  | 385.211  |  4.31    | 44.2     |
-| std   |  0.90164  | 26.2981 |  5.39277 |  0.375534 |  0.0923524 |  0.251261 | 24.6087 |  1.88395 |  5.33253 | 110.971 |   2.41058 |  10.5294 |  1.37357 |  8.09238 |
-| min   |  0.02009  |  0      |  2.68    |  0        |  0.4161    |  8.034    |  8.4    |  1.801   |  2       | 224     |  13       | 354.55   |  2.47    | 21.9     |
-| 25%   |  0.33147  |  0      |  3.97    |  0        |  0.504     |  8.247    | 70.4    |  2.2885  |  5       | 264     |  14.7     | 384.54   |  3.32    | 41.7     |
-| 50%   |  0.52014  |  0      |  6.2     |  0        |  0.507     |  8.297    | 78.3    |  2.8944  |  7       | 307     |  17.4     | 386.86   |  4.14    | 48.3     |
-| 75%   |  0.57834  | 20      |  6.2     |  0        |  0.605     |  8.398    | 86.5    |  3.6519  |  8       | 307     |  17.4     | 389.7    |  5.12    | 50       |
-| max   |  3.47428  | 95      | 19.58    |  1        |  0.718     |  8.78     | 93.9    |  8.9067  | 24       | 666     |  20.2     | 396.9    |  7.44    | 50       |
-#+end_example
+: |       |      CRIM |      ZN |    INDUS |      CHAS |        NOX |        RM |     AGE |      DIS |      RAD |     TAX |   PTRATIO |        B |    LSTAT |     MEDV |
+: |-------+-----------+---------+----------+-----------+------------+-----------+---------+----------+----------+---------+-----------+----------+----------+----------|
+: | count | 13        | 13      | 13       | 13        | 13         | 13        | 13      | 13       | 13       |  13     |  13       |  13      | 13       | 13       |
+: | mean  |  0.718795 | 13.6154 |  7.07846 |  0.153846 |  0.539238  |  8.34854  | 71.5385 |  3.43019 |  7.46154 | 325.077 |  16.3615  | 385.211  |  4.31    | 44.2     |
+: | std   |  0.90164  | 26.2981 |  5.39277 |  0.375534 |  0.0923524 |  0.251261 | 24.6087 |  1.88395 |  5.33253 | 110.971 |   2.41058 |  10.5294 |  1.37357 |  8.09238 |
+: | min   |  0.02009  |  0      |  2.68    |  0        |  0.4161    |  8.034    |  8.4    |  1.801   |  2       | 224     |  13       | 354.55   |  2.47    | 21.9     |
+: | 25%   |  0.33147  |  0      |  3.97    |  0        |  0.504     |  8.247    | 70.4    |  2.2885  |  5       | 264     |  14.7     | 384.54   |  3.32    | 41.7     |
+: | 50%   |  0.52014  |  0      |  6.2     |  0        |  0.507     |  8.297    | 78.3    |  2.8944  |  7       | 307     |  17.4     | 386.86   |  4.14    | 48.3     |
+: | 75%   |  0.57834  | 20      |  6.2     |  0        |  0.605     |  8.398    | 86.5    |  3.6519  |  8       | 307     |  17.4     | 389.7    |  5.12    | 50       |
+: | max   |  3.47428  | 95      | 19.58    |  1        |  0.718     |  8.78     | 93.9    |  8.9067  | 24       | 666     |  20.2     | 396.9    |  7.44    | 50       |
 
 These suburbs have higher median values for homes compared to the other suburbs,
 and correspondingly lower crime rates, lower proportions of low-status people,

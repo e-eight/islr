@@ -3,266 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-05-17 Sun 19:11 -->
+<!-- 2020-05-25 Mon 16:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Statistical Learning</title>
 <meta name="generator" content="Org mode" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
-<style>ol#al { list-style-type: lower-alpha; }</style>
-<style> #content{max-width:900px;}</style>
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2019 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<link rel="stylesheet" type="text/css" href="static/css/simple.css"/>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="sitemap.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
 <h1 class="title">Statistical Learning</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
+<li><a href="#org6cd6944">Notes</a>
+<ul>
+<li><a href="#orgaefa379">Models</a></li>
+<li><a href="#org22b6e31">Learning</a></li>
+<li><a href="#org31cd9b5">Variables &amp; Problems</a></li>
+<li><a href="#org5e661b7">Accuracy</a></li>
+</ul>
+</li>
 <li><a href="#orgc588f2f">Exercises</a>
 <ul>
 <li><a href="#org31996cd">Question 1</a></li>
@@ -289,14 +56,14 @@ for the JavaScript code in this tag.
 <li><a href="#org49cd0a9">Range of quantitative predictors</a></li>
 <li><a href="#org988b586">Mean and standard deviation of quantitative predictors</a></li>
 <li><a href="#orga1f524f">Data subset</a></li>
-<li><a href="#orgacfd984">Pair plots</a></li>
+<li><a href="#org6e2bfc6">Pair plots</a></li>
 <li><a href="#org8c432bc">Predicting gas mileage</a></li>
 </ul>
 </li>
 <li><a href="#orge03327f">Question 10</a>
 <ul>
 <li><a href="#org151f2f1">Boston data set</a></li>
-<li><a href="#org3a8da4b">Pair plots</a></li>
+<li><a href="#org240b150">Pair plots</a></li>
 <li><a href="#org24daae4">Association with per capita crime rate</a></li>
 <li><a href="#org940722b">Predictor ranges</a></li>
 <li><a href="#orgb841aea">Suburbs bounding the Charles river</a></li>
@@ -308,6 +75,83 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-org6cd6944" class="outline-2">
+<h2 id="org6cd6944">Notes</h2>
+<div class="outline-text-2" id="text-org6cd6944">
+<blockquote>
+<p>
+Inference is what statistics is mostly about, prediction is what machine
+learning is mostly about. &#x2013; <a href="http://brenocon.com/blog/2008/12/statistics-vs-machine-learning-fight/">Statistics vs Machine Learning, fight!</a>
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-orgaefa379" class="outline-3">
+<h3 id="orgaefa379">Models</h3>
+<div class="outline-text-3" id="text-orgaefa379">
+<ul class="org-ul">
+<li>Parametric models reduce the problem of estimating \(f\) to estimating a few
+parameters. Easy to interpret, but might not fit the data well.</li>
+<li>Non-parametric models do not assume any particular functional form for \(f\).
+Usually fit the data better than parametric models, given that there are large
+number of observations, much larger than that required by parametric models.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org22b6e31" class="outline-3">
+<h3 id="org22b6e31">Learning</h3>
+<div class="outline-text-3" id="text-org22b6e31">
+<ul class="org-ul">
+<li>Supervised learning: For each observation \(i\) of predictor measurements \(x_i\)
+there is an associated response measurement \(y_i\).</li>
+<li>Unsupervised learning: For each observation \(i\) there is a vector of
+measurements \(x_i\) but no associated response measurement.</li>
+<li>Semi-supervised learning: Response measurements are available for some of the
+observations but not all.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org31cd9b5" class="outline-3">
+<h3 id="org31cd9b5">Variables &amp; Problems</h3>
+<div class="outline-text-3" id="text-org31cd9b5">
+<ul class="org-ul">
+<li>Quantitative variables: numerical</li>
+<li>Qualitative variables: categorical</li>
+<li>Regression problems have quantitative response.</li>
+<li>Classification problems have qualitative response.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5e661b7" class="outline-3">
+<h3 id="org5e661b7">Accuracy</h3>
+<div class="outline-text-3" id="text-org5e661b7">
+<blockquote>
+<p>
+There is no free lunch in statistics.
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li><i>Mean squared error</i> is typically used for regression problems.</li>
+<li><i>Error rate</i>, proportion of mistakes that are made if we apply the estimate
+\(\hat{f}\) to the data, is typically used for classification problems.</li>
+<li>Test error rate is minimized by the <i>Bayes Classifier</i>.</li>
+<li><i>Cross-validation</i> is used to estimate test MSE using training data.</li>
+<li><i>Variance</i> is the change in the estimate \(\hat{f}\) of \(f\) due to change in
+training data.</li>
+<li><i>Bias</i> is the error due to approximating a complicated problem with a simpler
+model.</li>
+<li>To reduce test error we need a model with <i>low variance</i> <b>and</b> <i>low bias</i>.</li>
+<li>Increasing flexibility of the model generally decreases bias but increases
+variance.</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -355,7 +199,7 @@ The sketches are as follows:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> numpy <span style="color: #859900; font-weight: bold;">as</span> np
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">import</span> numpy <span style="color: #859900; font-weight: bold;">as</span> np
 <span style="color: #859900; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #859900; font-weight: bold;">as</span> plt
 <span style="color: #859900; font-weight: bold;">import</span> seaborn <span style="color: #859900; font-weight: bold;">as</span> sns
 
@@ -380,9 +224,7 @@ ax.legend<span style="color: #268bd2;">(</span>loc=<span style="color: #2aa198;"
 
 sns.despine<span style="color: #268bd2;">()</span>
 
-plt.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/bv-decomp.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span> <span style="color: #96A7A9; font-style: italic;"># </span><span style="color: #96A7A9; font-style: italic;">To clear the figure</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/bv-decomp.png"</span><span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/bv-decomp.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -632,7 +474,7 @@ non-linearities, because there will be very few neighbors.
 <h4 id="orgd2d86f7">The <code>College</code> data set</h4>
 <div class="outline-text-4" id="text-orgd2d86f7">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">college</span> = pd.read_csv<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"data/College.csv"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">college</span> = pd.read_csv<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"data/College.csv"</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>college.head<span style="color: #859900;">()</span>, college.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -654,7 +496,7 @@ non-linearities, because there will be very few neighbors.
 <h4 id="org67b9cb8">College names as index</h4>
 <div class="outline-text-4" id="text-org67b9cb8">
 <div class="org-src-container">
-<pre class="src src-python">college.set_index<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Unnamed: 0"</span>, inplace=<span style="color: #6c71c4; font-weight: bold;">True</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">college.set_index<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Unnamed: 0"</span>, inplace=<span style="color: #6c71c4; font-weight: bold;">True</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">college.index.name</span> = <span style="color: #2aa198;">"Names"</span>
 
 <span style="color: #268bd2;">headers</span> = <span style="color: #268bd2;">[</span>college.index.name<span style="color: #268bd2;">]</span> + <span style="color: #d33682; font-style: italic;">list</span><span style="color: #268bd2;">(</span>college.columns<span style="color: #268bd2;">)</span>
@@ -679,7 +521,7 @@ non-linearities, because there will be very few neighbors.
 <h4 id="org7e7165f">Summary of data</h4>
 <div class="outline-text-4" id="text-org7e7165f">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>college.describe<span style="color: #859900;">()</span>, college.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>college.describe<span style="color: #859900;">()</span>, college.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -694,6 +536,7 @@ non-linearities, because there will be very few neighbors.
 | 50%       |  1558    |  1110    |  434     |     23      |     54      |       1707    |       353     |    9990    |      4200    |  500     |   1200     |  75      |    82      |    13.6     |       21      |  8377    |     65      |
 | 75%       |  3624    |  2424    |  902     |     35      |     69      |       4005    |       967     |   12925    |      5050    |  600     |   1700     |  85      |    92      |    16.5     |       31      | 10830    |     78      |
 | max       | 48094    | 26330    | 6392     |     96      |    100      |      31643    |     21836     |   21700    |      8124    | 2340     |   6800     | 103      |   100      |    39.8     |       64      | 56233    |    118      |
+
 </pre>
 </div>
 </div>
@@ -702,12 +545,11 @@ non-linearities, because there will be very few neighbors.
 <h4 id="org43c0e42">Scatter plot matrix</h4>
 <div class="outline-text-4" id="text-org43c0e42">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">plot_columns</span> = <span style="color: #d33682; font-style: italic;">list</span><span style="color: #268bd2;">(</span>college.columns<span style="color: #268bd2;">)[</span>:10<span style="color: #268bd2;">]</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">plot_columns</span> = <span style="color: #d33682; font-style: italic;">list</span><span style="color: #268bd2;">(</span>college.columns<span style="color: #268bd2;">)[</span>:10<span style="color: #268bd2;">]</span>
 plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">spm</span> = sns.pairplot<span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span>plot_columns<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 spm.fig.set_size_inches<span style="color: #268bd2;">(</span>12, 12<span style="color: #268bd2;">)</span>
 spm.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_scatter.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_scatter.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -718,17 +560,16 @@ spm.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"
 </div>
 </div>
 </div>
+
 <div id="outline-container-orgda98e63" class="outline-4">
 <h4 id="orgda98e63">Box plots</h4>
 <div class="outline-text-4" id="text-orgda98e63">
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">bp1</span> = sns.boxplot<span style="color: #268bd2;">(</span>x=<span style="color: #2aa198;">"Private"</span>, y=<span style="color: #2aa198;">"Outstate"</span>, data=college<span style="color: #268bd2;">)</span>
 sns.despine<span style="color: #268bd2;">()</span>
 plt.tight_layout<span style="color: #268bd2;">()</span>
 bp1.get_figure<span style="color: #268bd2;">()</span>.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_outstate_private.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_outstate_private.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -744,7 +585,7 @@ plt.clf<span style="color: #268bd2;">()</span>
 <h4 id="orgcdd6494">Elite universities</h4>
 <div class="outline-text-4" id="text-orgcdd6494">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">college</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Elite"</span><span style="color: #268bd2;">]</span> = college<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Top10perc"</span><span style="color: #268bd2;">]</span>.<span style="color: #d33682; font-style: italic;">apply</span><span style="color: #268bd2;">(</span><span style="color: #859900; font-weight: bold;">lambda</span> x: <span style="color: #2aa198;">"Yes"</span> <span style="color: #859900; font-weight: bold;">if</span> x &gt; 50 <span style="color: #859900; font-weight: bold;">else</span> <span style="color: #2aa198;">"No"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">college</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Elite"</span><span style="color: #268bd2;">]</span> = college<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Top10perc"</span><span style="color: #268bd2;">]</span>.<span style="color: #d33682; font-style: italic;">apply</span><span style="color: #268bd2;">(</span><span style="color: #859900; font-weight: bold;">lambda</span> x: <span style="color: #2aa198;">"Yes"</span> <span style="color: #859900; font-weight: bold;">if</span> x &gt; 50 <span style="color: #859900; font-weight: bold;">else</span> <span style="color: #2aa198;">"No"</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Elite"</span><span style="color: #d33682;">]</span>.value_counts<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -762,13 +603,11 @@ the top 10% of their high school classes.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">bp2</span> = sns.boxplot<span style="color: #268bd2;">(</span>x=<span style="color: #2aa198;">"Elite"</span>, y=<span style="color: #2aa198;">"Outstate"</span>, data=college<span style="color: #268bd2;">)</span>
 sns.despine<span style="color: #268bd2;">()</span>
 plt.tight_layout<span style="color: #268bd2;">()</span>
 bp2.get_figure<span style="color: #268bd2;">()</span>.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_outstate_elite.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_outstate_elite.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -789,7 +628,7 @@ differing number of bins. We first need to bin these quantitative variables.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>college.info<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>college.info<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -830,7 +669,7 @@ To keep things simple we will bin these variables in to either 3 bins or 5 bins.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">cut_bins3</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Low"</span>, <span style="color: #2aa198;">"Medium"</span>, <span style="color: #2aa198;">"High"</span><span style="color: #268bd2;">]</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">cut_bins3</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Low"</span>, <span style="color: #2aa198;">"Medium"</span>, <span style="color: #2aa198;">"High"</span><span style="color: #268bd2;">]</span>
 <span style="color: #268bd2;">cut_bins5</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Very Low"</span>, <span style="color: #2aa198;">"Low"</span>, <span style="color: #2aa198;">"Medium"</span>, <span style="color: #2aa198;">"High"</span>, <span style="color: #2aa198;">"Very High"</span><span style="color: #268bd2;">]</span>
 <span style="color: #268bd2;">college</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Enroll2"</span><span style="color: #268bd2;">]</span> = pd.cut<span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Enroll"</span><span style="color: #d33682;">]</span>, 5, labels=cut_bins5<span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">college</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Books2"</span><span style="color: #268bd2;">]</span> = pd.cut<span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Books"</span><span style="color: #d33682;">]</span>, 3, labels=cut_bins3<span style="color: #268bd2;">)</span>
@@ -844,11 +683,14 @@ sns.countplot<span style="color: #268bd2;">(</span>college<span style="color: #d
 sns.countplot<span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span><span style="color: #2aa198;">"PhD2"</span><span style="color: #d33682;">]</span>, ax=axs<span style="color: #d33682;">[</span>1, 0<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 sns.countplot<span style="color: #268bd2;">(</span>college<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Grad.Rate2"</span><span style="color: #d33682;">]</span>, ax=axs<span style="color: #d33682;">[</span>1, 1<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 sns.despine<span style="color: #268bd2;">()</span>
-plt.tight_layout<span style="color: #268bd2;">()</span>
-plt.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_hist.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-plt.close<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_hist.png"</span><span style="color: #268bd2;">)</span>
+
+axs<span style="color: #268bd2;">[</span>0, 0<span style="color: #268bd2;">]</span>.set_xticklabels<span style="color: #268bd2;">(</span>axs<span style="color: #d33682;">[</span>0, 0<span style="color: #d33682;">]</span>.get_xticklabels<span style="color: #d33682;">()</span>, rotation=40, ha=<span style="color: #2aa198;">"right"</span><span style="color: #268bd2;">)</span>
+axs<span style="color: #268bd2;">[</span>0, 1<span style="color: #268bd2;">]</span>.set_xticklabels<span style="color: #268bd2;">(</span>axs<span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>.get_xticklabels<span style="color: #d33682;">()</span>, rotation=40, ha=<span style="color: #2aa198;">"right"</span><span style="color: #268bd2;">)</span>
+axs<span style="color: #268bd2;">[</span>1, 0<span style="color: #268bd2;">]</span>.set_xticklabels<span style="color: #268bd2;">(</span>axs<span style="color: #d33682;">[</span>1, 0<span style="color: #d33682;">]</span>.get_xticklabels<span style="color: #d33682;">()</span>, rotation=40, ha=<span style="color: #2aa198;">"right"</span><span style="color: #268bd2;">)</span>
+axs<span style="color: #268bd2;">[</span>1, 1<span style="color: #268bd2;">]</span>.set_xticklabels<span style="color: #268bd2;">(</span>axs<span style="color: #d33682;">[</span>1, 1<span style="color: #d33682;">]</span>.get_xticklabels<span style="color: #d33682;">()</span>, rotation=40, ha=<span style="color: #2aa198;">"right"</span><span style="color: #268bd2;">)</span>
+
+plt.subplots_adjust<span style="color: #268bd2;">(</span>wspace=0.4, hspace=1<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/college_hist.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -869,7 +711,7 @@ plt.close<span style="color: #268bd2;">()</span>
 <h4 id="org0c27816">Predictors of the <code>Auto</code> data set</h4>
 <div class="outline-text-4" id="text-org0c27816">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">auto</span> = pd.read_csv<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"data/Auto.csv"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">auto</span> = pd.read_csv<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"data/Auto.csv"</span><span style="color: #268bd2;">)</span>
 auto.dropna<span style="color: #268bd2;">(</span>inplace=<span style="color: #6c71c4; font-weight: bold;">True</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>auto.info<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
@@ -903,7 +745,7 @@ can convert that to a numeric form.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span><span style="color: #2aa198;">"horsepower"</span><span style="color: #d33682;">]</span>.unique<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span><span style="color: #2aa198;">"horsepower"</span><span style="color: #d33682;">]</span>.unique<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -926,7 +768,7 @@ missing data, and then make this column numeric.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">auto.drop<span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span>auto.horsepower == <span style="color: #2aa198;">"?"</span><span style="color: #d33682;">]</span>.index, inplace=<span style="color: #6c71c4; font-weight: bold;">True</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">auto.drop<span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span>auto.horsepower == <span style="color: #2aa198;">"?"</span><span style="color: #d33682;">]</span>.index, inplace=<span style="color: #6c71c4; font-weight: bold;">True</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">auto</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"horsepower"</span><span style="color: #268bd2;">]</span> = pd.to_numeric<span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span><span style="color: #2aa198;">"horsepower"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>auto.info<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
@@ -962,7 +804,7 @@ Now only <code>name</code> is the qualitative predictor.
 <h4 id="org49cd0a9">Range of quantitative predictors</h4>
 <div class="outline-text-4" id="text-org49cd0a9">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> pprint <span style="color: #859900; font-weight: bold;">import</span> pprint
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">from</span> pprint <span style="color: #859900; font-weight: bold;">import</span> pprint
 
 <span style="color: #268bd2;">quant</span> = auto.select_dtypes<span style="color: #268bd2;">(</span>exclude=<span style="color: #2aa198;">"object"</span><span style="color: #268bd2;">)</span>.columns
 <span style="color: #268bd2;">ranges</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">(</span><span style="color: #d33682; font-style: italic;">min</span><span style="color: #859900;">(</span>auto<span style="color: #cb4b16;">[</span>col<span style="color: #cb4b16;">]</span><span style="color: #859900;">)</span>, <span style="color: #d33682; font-style: italic;">max</span><span style="color: #859900;">(</span>auto<span style="color: #cb4b16;">[</span>col<span style="color: #cb4b16;">]</span><span style="color: #859900;">)</span><span style="color: #d33682;">)</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
@@ -988,7 +830,7 @@ pprint<span style="color: #268bd2;">(</span>ranges<span style="color: #268bd2;">
 <h4 id="org988b586">Mean and standard deviation of quantitative predictors</h4>
 <div class="outline-text-4" id="text-org988b586">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">msd</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">{</span><span style="color: #2aa198;">"mean"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.mean<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span>, <span style="color: #2aa198;">"std"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.std<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span><span style="color: #d33682;">}</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">msd</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">{</span><span style="color: #2aa198;">"mean"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.mean<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span>, <span style="color: #2aa198;">"std"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.std<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span><span style="color: #d33682;">}</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
 pprint<span style="color: #268bd2;">(</span>msd<span style="color: #268bd2;">)</span>
 
 <span style="color: #96A7A9; font-style: italic;"># </span><span style="color: #96A7A9; font-style: italic;">An alternative is to use the following aggregrate method:</span>
@@ -1019,7 +861,7 @@ mean and standard deviation of the remaining data set.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">auto2</span> = auto.drop<span style="color: #268bd2;">(</span>auto.index<span style="color: #d33682;">[</span>10:85<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">auto2</span> = auto.drop<span style="color: #268bd2;">(</span>auto.index<span style="color: #d33682;">[</span>10:85<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 
 <span style="color: #268bd2;">ranges</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">(</span><span style="color: #d33682; font-style: italic;">min</span><span style="color: #859900;">(</span>auto2<span style="color: #cb4b16;">[</span>col<span style="color: #cb4b16;">]</span><span style="color: #859900;">)</span>, <span style="color: #d33682; font-style: italic;">max</span><span style="color: #859900;">(</span>auto2<span style="color: #cb4b16;">[</span>col<span style="color: #cb4b16;">]</span><span style="color: #859900;">)</span><span style="color: #d33682;">)</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
 pprint<span style="color: #268bd2;">(</span>ranges<span style="color: #268bd2;">)</span>
@@ -1039,7 +881,7 @@ pprint<span style="color: #268bd2;">(</span>ranges<span style="color: #268bd2;">
 </pre>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">msd</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">{</span><span style="color: #2aa198;">"mean"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.mean<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span>, <span style="color: #2aa198;">"std"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.std<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span><span style="color: #d33682;">}</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">msd</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">{</span><span style="color: #2aa198;">"mean"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.mean<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span>, <span style="color: #2aa198;">"std"</span>: <span style="color: #d33682; font-style: italic;">round</span><span style="color: #859900;">(</span>np.std<span style="color: #cb4b16;">(</span>auto<span style="color: #6c71c4;">[</span>col<span style="color: #6c71c4;">]</span><span style="color: #cb4b16;">)</span>, 2<span style="color: #859900;">)</span><span style="color: #d33682;">}</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> quant<span style="color: #268bd2;">}</span>
 pprint<span style="color: #268bd2;">(</span>msd<span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -1058,16 +900,14 @@ pprint<span style="color: #268bd2;">(</span>msd<span style="color: #268bd2;">)</
 </div>
 </div>
 
-<div id="outline-container-orgacfd984" class="outline-4">
-<h4 id="orgacfd984">Pair plots</h4>
-<div class="outline-text-4" id="text-orgacfd984">
+<div id="outline-container-org6e2bfc6" class="outline-4">
+<h4 id="org6e2bfc6">Pair plots</h4>
+<div class="outline-text-4" id="text-org6e2bfc6">
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">'all'</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">spm</span> = sns.pairplot<span style="color: #268bd2;">(</span>auto<span style="color: #d33682;">[</span><span style="color: #859900;">[</span><span style="color: #2aa198;">"mpg"</span>, <span style="color: #2aa198;">"horsepower"</span>, <span style="color: #2aa198;">"weight"</span>, <span style="color: #2aa198;">"displacement"</span>, <span style="color: #2aa198;">"acceleration"</span><span style="color: #859900;">]</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 spm.fig.set_size_inches<span style="color: #268bd2;">(</span>6, 6<span style="color: #268bd2;">)</span>
 spm.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/auto_pair.png"</span><span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/auto_pair.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1097,6 +937,7 @@ As we observed earlier that <code>mpg</code> has a linear relation with <code>ho
 </div>
 </div>
 </div>
+
 <div id="outline-container-orge03327f" class="outline-3">
 <h3 id="orge03327f">Question 10</h3>
 <div class="outline-text-3" id="text-orge03327f">
@@ -1105,7 +946,7 @@ As we observed earlier that <code>mpg</code> has a linear relation with <code>ho
 <h4 id="org151f2f1">Boston data set</h4>
 <div class="outline-text-4" id="text-org151f2f1">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">from</span> sklearn.datasets <span style="color: #859900; font-weight: bold;">import</span> load_boston
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">from</span> sklearn.datasets <span style="color: #859900; font-weight: bold;">import</span> load_boston
 
 <span style="color: #268bd2;">lb</span> = load_boston<span style="color: #268bd2;">()</span>
 <span style="color: #268bd2;">boston</span> = pd.DataFrame<span style="color: #268bd2;">(</span>lb.data, columns=lb.feature_names<span style="color: #268bd2;">)</span>
@@ -1126,7 +967,7 @@ As we observed earlier that <code>mpg</code> has a linear relation with <code>ho
 </pre>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>lb<span style="color: #d33682;">[</span><span style="color: #2aa198;">'DESCR'</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>lb<span style="color: #d33682;">[</span><span style="color: #2aa198;">'DESCR'</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1193,16 +1034,14 @@ suburbs.
 </div>
 </div>
 
-<div id="outline-container-org3a8da4b" class="outline-4">
-<h4 id="org3a8da4b">Pair plots</h4>
-<div class="outline-text-4" id="text-org3a8da4b">
+<div id="outline-container-org240b150" class="outline-4">
+<h4 id="org240b150">Pair plots</h4>
+<div class="outline-text-4" id="text-org240b150">
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">spm</span> = sns.pairplot<span style="color: #268bd2;">(</span>boston, plot_kws = <span style="color: #d33682;">{</span><span style="color: #2aa198;">'s'</span>: 10<span style="color: #d33682;">}</span><span style="color: #268bd2;">)</span>
 spm.fig.set_size_inches<span style="color: #268bd2;">(</span>12, 12<span style="color: #268bd2;">)</span>
 spm.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_scatter.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_scatter.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1229,25 +1068,25 @@ predictors.
 <h4 id="org24daae4">Association with per capita crime rate</h4>
 <div class="outline-text-4" id="text-org24daae4">
 <div class="org-src-container">
-<pre class="src src-python">boston.corrwith<span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"CRIM"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>.sort_values<span style="color: #268bd2;">()</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>boston.corrwith<span style="color: #d33682;">(</span>boston<span style="color: #859900;">[</span><span style="color: #2aa198;">"CRIM"</span><span style="color: #859900;">]</span><span style="color: #d33682;">)</span>.sort_values<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
 <pre class="example">
-MEDV      -0.39
-B         -0.39
-DIS       -0.38
-RM        -0.22
-ZN        -0.20
-CHAS      -0.06
-PTRATIO    0.29
-AGE        0.35
-INDUS      0.41
-NOX        0.42
-LSTAT      0.46
-TAX        0.58
-RAD        0.63
-CRIM       1.00
+MEDV      -0.388305
+B         -0.385064
+DIS       -0.379670
+RM        -0.219247
+ZN        -0.200469
+CHAS      -0.055892
+PTRATIO    0.289946
+AGE        0.352734
+INDUS      0.406583
+NOX        0.420972
+LSTAT      0.455621
+TAX        0.582764
+RAD        0.625505
+CRIM       1.000000
 dtype: float64
 </pre>
 
@@ -1258,13 +1097,11 @@ crime rate.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
 sns.scatterplot<span style="color: #268bd2;">(</span>x=<span style="color: #2aa198;">"TAX"</span>, y=<span style="color: #2aa198;">"CRIM"</span>, data=boston<span style="color: #268bd2;">)</span>
 sns.despine<span style="color: #268bd2;">()</span>
 plt.tight_layout<span style="color: #268bd2;">()</span>
 plt.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_crim_tax.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_crim_tax.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1276,13 +1113,11 @@ plt.clf<span style="color: #268bd2;">()</span>
 
 
 <div class="org-src-container">
-<pre class="src src-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
 sns.boxplot<span style="color: #268bd2;">(</span>x=<span style="color: #2aa198;">"RAD"</span>, y=<span style="color: #2aa198;">"CRIM"</span>, data=boston<span style="color: #268bd2;">)</span>
 sns.despine<span style="color: #268bd2;">()</span>
 plt.tight_layout<span style="color: #268bd2;">()</span>
 plt.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_crim_rad.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
-plt.clf<span style="color: #268bd2;">()</span>
-<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/boston_crim_rad.png"</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1303,7 +1138,7 @@ tax rate is \(~ 660\) or the index of accessibility to radial highways is 24.
 <h4 id="org940722b">Predictor ranges</h4>
 <div class="outline-text-4" id="text-org940722b">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">ranges</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">(</span>boston<span style="color: #859900;">[</span>col<span style="color: #859900;">]</span>.<span style="color: #d33682; font-style: italic;">min</span><span style="color: #859900;">()</span>, boston<span style="color: #859900;">[</span>col<span style="color: #859900;">]</span>.<span style="color: #d33682; font-style: italic;">max</span><span style="color: #859900;">()</span><span style="color: #d33682;">)</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> boston.columns<span style="color: #d33682;">[</span>:-1<span style="color: #d33682;">]</span><span style="color: #268bd2;">}</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">ranges</span> = <span style="color: #268bd2;">{</span>col: <span style="color: #d33682;">(</span>boston<span style="color: #859900;">[</span>col<span style="color: #859900;">]</span>.<span style="color: #d33682; font-style: italic;">min</span><span style="color: #859900;">()</span>, boston<span style="color: #859900;">[</span>col<span style="color: #859900;">]</span>.<span style="color: #d33682; font-style: italic;">max</span><span style="color: #859900;">()</span><span style="color: #d33682;">)</span> <span style="color: #859900; font-weight: bold;">for</span> col <span style="color: #859900; font-weight: bold;">in</span> boston.columns<span style="color: #d33682;">[</span>:-1<span style="color: #d33682;">]</span><span style="color: #268bd2;">}</span>
 pprint<span style="color: #268bd2;">(</span>ranges<span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -1331,7 +1166,7 @@ particularly high crime rates:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">high_crime</span> = boston.nlargest<span style="color: #268bd2;">(</span>5, <span style="color: #2aa198;">"CRIM"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">high_crime</span> = boston.nlargest<span style="color: #268bd2;">(</span>5, <span style="color: #2aa198;">"CRIM"</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>high_crime, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -1353,7 +1188,7 @@ There are suburbs with particularly high tax rates.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">high_tax</span> = boston.nlargest<span style="color: #268bd2;">(</span>5, <span style="color: #2aa198;">"TAX"</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">high_tax</span> = boston.nlargest<span style="color: #268bd2;">(</span>5, <span style="color: #2aa198;">"TAX"</span><span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>high_tax, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
@@ -1381,7 +1216,7 @@ pupil-to-teacher ratio.
 <h4 id="orgb841aea">Suburbs bounding the Charles river</h4>
 <div class="outline-text-4" id="text-orgb841aea">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"CHAS"</span><span style="color: #d33682;">]</span>.value_counts<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"CHAS"</span><span style="color: #d33682;">]</span>.value_counts<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1402,7 +1237,7 @@ There are 35 suburbs that bound the Charles river.
 <h4 id="org9df6ce4">Median pupil to teacher ratio</h4>
 <div class="outline-text-4" id="text-org9df6ce4">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"PTRATIO"</span><span style="color: #d33682;">]</span>.median<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"PTRATIO"</span><span style="color: #d33682;">]</span>.median<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1421,7 +1256,7 @@ The median pupil-to-teacher ratio is 19.5.
 <h4 id="orgbcea8ed">Suburb with lowest median value</h4>
 <div class="outline-text-4" id="text-orgbcea8ed">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>boston.nsmallest<span style="color: #859900;">(</span>1, <span style="color: #2aa198;">"MEDV"</span><span style="color: #859900;">)</span>, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>boston.nsmallest<span style="color: #859900;">(</span>1, <span style="color: #2aa198;">"MEDV"</span><span style="color: #859900;">)</span>, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1446,7 +1281,7 @@ earlier we can see that this suburb has:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>boston.describe<span style="color: #859900;">()</span>, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>boston.describe<span style="color: #859900;">()</span>, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
 
@@ -1461,6 +1296,7 @@ earlier we can see that this suburb has:
 | 50%   |   0.25651  |   0      |   9.69    |   0        |   0.538    |   6.2085   |  77.5    |   3.20745 |   5       | 330     |  19.05    | 391.44   |  11.36    |  21.2    |
 | 75%   |   3.67708  |  12.5    |  18.1     |   0        |   0.624    |   6.6235   |  94.075  |   5.18843 |  24       | 666     |  20.2     | 396.225  |  16.955   |  25      |
 | max   |  88.9762   | 100      |  27.74    |   1        |   0.871    |   8.78     | 100      |  12.1265  |  24       | 711     |  22       | 396.9    |  37.97    |  50      |
+
 </pre>
 
 <p>
@@ -1476,7 +1312,7 @@ tax rate are equal to their respective 75% quantile.
 <h4 id="org2dfc2b0">Average number of rooms</h4>
 <div class="outline-text-4" id="text-org2dfc2b0">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">rm7</span> = np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"RM"</span><span style="color: #d33682;">]</span> &gt; 7<span style="color: #268bd2;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">rm7</span> = np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"RM"</span><span style="color: #d33682;">]</span> &gt; 7<span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">rm8</span> = np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #268bd2;">(</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"RM"</span><span style="color: #d33682;">]</span> &gt; 8<span style="color: #268bd2;">)</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>rm7, rm8<span style="color: #268bd2;">)</span>
 </pre>
@@ -1493,29 +1329,10 @@ suburbs which average more than eight rooms per dwelling.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #268bd2;">eight_rooms</span> = boston<span style="color: #268bd2;">[</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"RM"</span><span style="color: #d33682;">]</span> &gt; 8<span style="color: #268bd2;">]</span>
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">eight_rooms</span> = boston<span style="color: #268bd2;">[</span>boston<span style="color: #d33682;">[</span><span style="color: #2aa198;">"RM"</span><span style="color: #d33682;">]</span> &gt; 8<span style="color: #268bd2;">]</span>
 <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>eight_rooms.describe<span style="color: #859900;">()</span>, boston.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
 </pre>
 </div>
-
-<pre class="example">
-|       |      CRIM |      ZN |    INDUS |      CHAS |        NOX |        RM |     AGE |      DIS |      RAD |     TAX |   PTRATIO |        B |    LSTAT |     MEDV |
-|-------+-----------+---------+----------+-----------+------------+-----------+---------+----------+----------+---------+-----------+----------+----------+----------|
-| count | 13        | 13      | 13       | 13        | 13         | 13        | 13      | 13       | 13       |  13     |  13       |  13      | 13       | 13       |
-| mean  |  0.718795 | 13.6154 |  7.07846 |  0.153846 |  0.539238  |  8.34854  | 71.5385 |  3.43019 |  7.46154 | 325.077 |  16.3615  | 385.211  |  4.31    | 44.2     |
-| std   |  0.90164  | 26.2981 |  5.39277 |  0.375534 |  0.0923524 |  0.251261 | 24.6087 |  1.88395 |  5.33253 | 110.971 |   2.41058 |  10.5294 |  1.37357 |  8.09238 |
-| min   |  0.02009  |  0      |  2.68    |  0        |  0.4161    |  8.034    |  8.4    |  1.801   |  2       | 224     |  13       | 354.55   |  2.47    | 21.9     |
-| 25%   |  0.33147  |  0      |  3.97    |  0        |  0.504     |  8.247    | 70.4    |  2.2885  |  5       | 264     |  14.7     | 384.54   |  3.32    | 41.7     |
-| 50%   |  0.52014  |  0      |  6.2     |  0        |  0.507     |  8.297    | 78.3    |  2.8944  |  7       | 307     |  17.4     | 386.86   |  4.14    | 48.3     |
-| 75%   |  0.57834  | 20      |  6.2     |  0        |  0.605     |  8.398    | 86.5    |  3.6519  |  8       | 307     |  17.4     | 389.7    |  5.12    | 50       |
-| max   |  3.47428  | 95      | 19.58    |  1        |  0.718     |  8.78     | 93.9    |  8.9067  | 24       | 666     |  20.2     | 396.9    |  7.44    | 50       |
-</pre>
-
-<p>
-These suburbs have higher median values for homes compared to the other suburbs,
-and correspondingly lower crime rates, lower proportions of low-status people,
-and lower proportions of non-retail business acres.
-</p>
 </div>
 </div>
 </div>

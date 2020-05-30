@@ -1,7 +1,7 @@
 #+TITLE: An Introduction to Statistical Learning in Python
 #+AUTHOR: Soham Pal
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
-#+HTML_HEAD: <style>ol#al { list-style-type: lower-alpha; }</style>
-#+HTML_HEAD: <style> #content{max-width:900px;}</style>
+#+OPTIONS: num:nil toc:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="static/css/simple.css"/>
 
 * [[file:chapter2.org][Chapter 2]]
+* [[file:chapter3.org][Chapter 3]]
