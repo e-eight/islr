@@ -1,5 +1,6 @@
 #+TITLE: Sitemap
 
 - [[file:index.org][An Introduction to Statistical Learning in Python]]
+- [[file:chapter4.org][Classification]]
 - [[file:chapter3.org][Linear Regression]]
 - [[file:chapter2.org][Statistical Learning]]

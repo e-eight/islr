@@ -5,3 +5,4 @@
 
 * [[file:chapter2.org][Chapter 2]]
 * [[file:chapter3.org][Chapter 3]]
+* [[file:chapter4.org][Chapter 4]]

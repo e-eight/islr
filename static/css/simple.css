@@ -159,26 +159,45 @@ ol#rm {
         font-size: 30pt;
         margin-bottom: 20pt;
     }
+
     h2 {
         margin-top: 1em;
         font-size: 20pt;
         margin-bottom: 1em;
         font-weight: bold;
     }
+
     h3 {
         margin-top: 1em;
-        font-size: 14pt;
+        font-size: 17.5pt;
         margin-bottom: 1em;
         font-weight: bold;
     }
+
+    h4 {
+        margin-top: 1em;
+        font-size: 15pt;
+        margin-bottom: 1em;
+        font-weight: bold;
+    }
+
+    h5 {
+        margin-top: 1em;
+        font-size: 14pt;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+    }
+
     p, pre {
         margin-top: 1em;
         font-size: 14pt;
         margin-bottom: 1em;
     }
+
     img {
         max-width: 600px;
     }
+
     #postamble p {
         margin-top: 3em;
         font-size: 10pt;

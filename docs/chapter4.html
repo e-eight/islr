@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-06-22 Mon 00:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Classification</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="static/css/simple.css"/>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="sitemap.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Classification</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd762445">Exercises</a>
+<ul>
+<li><a href="#org2e3d31f">Conceptual</a>
+<ul>
+<li><a href="#orgf5f234a">Question 1</a></li>
+<li><a href="#orgc85547c">Question 2</a></li>
+<li><a href="#org7c4c8f7">Question 3</a></li>
+<li><a href="#org6de96f8">Question 4</a></li>
+<li><a href="#orgdb50d6c">Question 5</a></li>
+<li><a href="#orgd158721">Question 6</a></li>
+<li><a href="#org58190de">Question 7</a></li>
+<li><a href="#org56c5969">Question 8</a></li>
+<li><a href="#org9772d76">Question 9</a></li>
+</ul>
+</li>
+<li><a href="#org471ec53">Applied</a>
+<ul>
+<li><a href="#orgf911bfd">Question 10</a>
+<ul>
+<li><a href="#org9fc4fd3">Summary of <code>Weekly</code> data set</a></li>
+<li><a href="#orgbbd7275">Logistic regression with entire data set</a></li>
+<li><a href="#org0773e58">Confusion matrix of above logistic regression</a></li>
+<li><a href="#org7d59eb2">Logistic regression with a subset of <code>Weekly</code> data set</a></li>
+<li><a href="#org7b03695">Linear discriminant analysis with a subset of <code>Weekly</code> data set</a></li>
+<li><a href="#orgd666afc">Quadratic discriminant analysis with a subset of <code>Weekly</code> data set</a></li>
+<li><a href="#orged94a3b">KNN (\(K = 1)\) with a subset of <code>Weekly</code> data set</a></li>
+<li><a href="#org5a63cac">Best method for the <code>Weekly</code> data set</a></li>
+</ul>
+</li>
+<li><a href="#org4962ffc">Question 11</a>
+<ul>
+<li><a href="#org7e73656">Add <code>mpg01</code> column to <code>Auto</code> data set</a></li>
+<li><a href="#orga2cabf8">Graphical exploration of the new data set</a></li>
+<li><a href="#orgc74b39c">Training and test sets</a></li>
+<li><a href="#orgf374568">Linear discriminant analysis for <code>mpg01</code></a></li>
+<li><a href="#org8f1532f">Quadratic discriminant analysis for <code>mpg01</code></a></li>
+<li><a href="#org3900c62">Logistic regression for <code>mpg01</code></a></li>
+<li><a href="#orga252ad3">KNN for <code>mpg01</code></a></li>
+</ul>
+</li>
+<li><a href="#org6d3e7a9">Question 13</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd762445" class="outline-2">
+<h2 id="orgd762445">Exercises</h2>
+<div class="outline-text-2" id="text-orgd762445">
+</div>
+<div id="outline-container-org2e3d31f" class="outline-3">
+<h3 id="org2e3d31f">Conceptual</h3>
+<div class="outline-text-3" id="text-org2e3d31f">
+</div>
+<div id="outline-container-orgf5f234a" class="outline-4">
+<h4 id="orgf5f234a">Question 1</h4>
+<div class="outline-text-4" id="text-orgf5f234a">
+<p>
+Let \(e^{β_0 + β_1 X}  = Y\). Then from equation 4.2 we have
+</p>
+\begin{align}
+p = \frac{e^Y}{1 + e^Y} ⇒ &p + p e^Y = e^Y ⇒ (1 - p) e^Y = p ⇒ e^Y = \frac{p}{1 - p},
+\end{align}
+<p>
+which is the same as equation 4.3.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc85547c" class="outline-4">
+<h4 id="orgc85547c">Question 2</h4>
+<div class="outline-text-4" id="text-orgc85547c">
+<p>
+Under the assumption that the observations from the \(k\)th class are drawn from
+a \(N(μ_k, σ^2)\) distribution, equation 4.12 becomes
+</p>
+\begin{align}
+p_k(x) = \frac{π_k f_k(x)}{∑_l π_l f_l(x)},
+\end{align}
+<p>
+where \(f_k(x) ∝ \exp(-(x - μ_k)^2 / 2σ^2)\). Taking the logarithm of both sides of
+the above equation we see that
+</p>
+\begin{align}
+\log p_k(x) = \log π_k + \log f_k(x)  - \log ∑_l π_l f_l(x) = -\frac{μ_k^2}{2σ^2} +
+\frac{xμ_k}{σ^2} + \log π_k + A(x),
+\end{align}
+<p>
+where \(A(x)\) contains terms that do not depend on the \(k\)th. Since the
+logarithm is a monotonically increasing function, maximizing \(p_k(x)\) is the same
+as maximizing \(\log p_k(x)\). The terms in \(A(x)\) are common to all of the
+classes. Thus to maximize \(\log p_k(x)\) we need to maximize
+</p>
+\begin{align}
+δ_k(x) = -\frac{μ_k^2}{2σ^2} + \frac{xμ_k}{σ^2} + \log π_k.
+\end{align}
+</div>
+</div>
+
+<div id="outline-container-org7c4c8f7" class="outline-4">
+<h4 id="org7c4c8f7">Question 3</h4>
+<div class="outline-text-4" id="text-org7c4c8f7">
+<p>
+For this we need the complete normalized form of \(f_k(x)\):
+</p>
+\begin{align}
+f_k(x) = \frac{1}{\sqrt{2π}σ_k} \exp\biggl( -\frac{(x - μ_k)^2}{2σ_k^2} \biggr).
+\end{align}
+<p>
+Here we are assuming that the observations from the \(k\)th class are drawn from
+a \(N(μ_k, σ_k^2)\) distribution. The difference from the previous problem is that
+here \(σ_k ≠ σ_l\) if (k ≠ l). Then logarithm of \(p_k(x)\) becomes
+</p>
+\begin{align}
+\log p_k(x) = \underbrace{- \frac{(x - μ_k)^2}{2σ_k^2} + \log \frac{1}{\sqrt{2π}σ_k}
+ + \log π_k}_{δ_k(x)} - \log ∑_l π_l f_l(x).
+\end{align}
+<p>
+The discriminant function \(δ_k(x)\) is quadratic in \(x\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6de96f8" class="outline-4">
+<h4 id="org6de96f8">Question 4</h4>
+<div class="outline-text-4" id="text-org6de96f8">
+<ol id="al" class="org-ol">
+<li>Since \(X\) is uniformly distributed, on an average we will use 10% of the
+available data.</li>
+<li>In this case both \(X_1\) and \(X_2\) are uniformly distributed, and we are
+using 10% of the range of \(X_1\) <i>and</i> 10% of the range of \(X_2\). This
+mean on an average we will be using 10% × 10% = 1% of the available data.</li>
+<li>Extending from the previous question, on an average we will be using (10%)<sup>100</sup>
+= 10<sup>-98</sup>% of the data.</li>
+<li>As the dimension increases we use less and less of the available data. This
+is because the data points have to be close to the test observation in every
+dimension. At some stage \(p\) will become large enough that there will no
+neighboring data point.</li>
+<li>There is a subtle difference between this question and what was asked in
+(a)-(c). In (a)-(c), we considered only those training observations which
+were within 10% of the range, in each dimension, centered on the test
+observation. And as we saw the actual fraction training observations used
+decreased with the increase in dimensions. Here we are constructing a
+hypercube centered on the test observation such that on an average,
+irrespective of the dimension, the hypercube will contain 10% of the training
+observations. Thus the required side lengths of the hypercube are:
+<ul class="org-ul">
+<li>\(p = 1\): \(l = 0.10\)</li>
+<li>\(p = 2\): \(l = \sqrt{0.10} ≈ 0.31\)</li>
+<li>\(p = 100\): \(l = \sqrt[100]{0.10} ≈ 0.98\)</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgdb50d6c" class="outline-4">
+<h4 id="orgdb50d6c">Question 5</h4>
+<div class="outline-text-4" id="text-orgdb50d6c">
+<ol id="al" class="org-ol">
+<li>QDA will fit the training set better because it is more flexible. LDA will
+perform better on the test set, as QDA will most likely overfit.</li>
+<li>QDA will perform better on both training and test sets due to its
+flexibility.</li>
+<li>We expect the performance of QDA to improve. It is more flexible and will
+therefore fit the training set better, and the larger sample size will help
+to decrease the resulting variance.</li>
+<li>False. QDA is more likely to overfit in such a scenario.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd158721" class="outline-4">
+<h4 id="orgd158721">Question 6</h4>
+<div class="outline-text-4" id="text-orgd158721">
+<p>
+The probability for logistic regression is given by
+</p>
+\begin{align}
+  \mathrm{Pr}(Y = \mathrm{A}|X_1, X_2)
+  = \frac{e^{β_0 + β_1 X_1 + β_2 X_2}}{1 + e^{β_0 + β_1 X_1 + β_2 X_2}}
+\end{align}
+
+<ol id="al" class="org-ol">
+<li>\(\mathrm{Pr}(Y = \mathrm{A}|X_1 = 40, X_2 = 3.5) = 0.3775\)</li>
+<li>Inverting the above equation we find that if \(X_1\) changes to 50 h then the
+probability of getting a A will 0.5 (or 50%).</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org58190de" class="outline-4">
+<h4 id="org58190de">Question 7</h4>
+<div class="outline-text-4" id="text-org58190de">
+<p>
+We have to use Bayes' theorem for this:
+</p>
+\begin{align}
+  \mathrm{Pr}(Y = k|X = x) = \frac{π_k f_k(x)}{∑_{l=1}^K π_l f_l(x)},
+\end{align}
+<p>
+with \(f_k(x)\) in this case being:
+</p>
+\begin{align}
+  f_k(x)
+  = f(x, μ_k, σ_k^2)
+  = \frac{1}{\sqrt{2π σ_k^2}}
+    \exp\biggl(-\frac{(x - μ_k)^2}{2σ_k^2}\biggr),
+\end{align}
+<p>
+and \(π_k\) being the prior probability of being in class \(k\).
+</p>
+
+<p>
+In the problem, the prior probability of issuing a dividend is 0.8.
+Then the probability of issuing a dividend given \(X = 4\) is:
+</p>
+\begin{align}
+  \mathrm{Pr}(Y = \mathrm{Yes}|X = 4)
+  = \frac{0.8 f(4, 10, 36)}{0.8 f(4, 10, 36) + 0.2 f(4, 0, 36)}
+  = 0.7519.
+\end{align}
+</div>
+</div>
+
+<div id="outline-container-org56c5969" class="outline-4">
+<h4 id="org56c5969">Question 8</h4>
+<div class="outline-text-4" id="text-org56c5969">
+<p>
+The method that has the lower test error would be better method since it would
+show that it generalizes better with unseen data.
+</p>
+
+<p>
+We need to calculate the test error for 1-nearest neighbor. The average error
+for 1-nearest neighbor is computed as: average error = (test error + training
+error) / 2. Since in the case of 1-nearest neighbor the only neighbor is the
+observation itself, therefore training error is 0. This means test error for
+1-nearest neighbor is twice its average error, 36%, which is more than the test
+error for logistic regression. We should prefer logistic regression over
+1-nearest neighbor.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9772d76" class="outline-4">
+<h4 id="org9772d76">Question 9</h4>
+<div class="outline-text-4" id="text-org9772d76">
+<ol class="org-ol">
+<li>Odds are given by \(p / (1 - p)\), where \(p\) is the probability of an
+event. If odds is 0.37, then \(p\) is 0.27. Therefore on an average 73% of
+people will default on their credit card payment.</li>
+<li>Here \(p = 0.16\). Then the odds is 0.19.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org471ec53" class="outline-3">
+<h3 id="org471ec53">Applied</h3>
+<div class="outline-text-3" id="text-org471ec53">
+<p>
+Load the general python packages.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">import</span> pandas <span style="color: #859900; font-weight: bold;">as</span> pd
+<span style="color: #859900; font-weight: bold;">import</span> numpy <span style="color: #859900; font-weight: bold;">as</span> np
+<span style="color: #859900; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #859900; font-weight: bold;">as</span> plt
+<span style="color: #859900; font-weight: bold;">import</span> seaborn <span style="color: #859900; font-weight: bold;">as</span> sns
+<span style="color: #859900; font-weight: bold;">from</span> sklearn.metrics <span style="color: #859900; font-weight: bold;">import</span> confusion_matrix, accuracy_score
+<span style="color: #859900; font-weight: bold;">from</span> sklearn.linear_model <span style="color: #859900; font-weight: bold;">import</span> LogisticRegression
+<span style="color: #859900; font-weight: bold;">from</span> sklearn.discriminant_analysis <span style="color: #859900; font-weight: bold;">import</span> LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+<span style="color: #859900; font-weight: bold;">from</span> sklearn.neighbors <span style="color: #859900; font-weight: bold;">import</span> KNeighborsClassifier
+<span style="color: #859900; font-weight: bold;">from</span> sklearn.model_selection <span style="color: #859900; font-weight: bold;">import</span> train_test_split
+<span style="color: #859900; font-weight: bold;">import</span> statsmodels.api <span style="color: #859900; font-weight: bold;">as</span> sm
+<span style="color: #859900; font-weight: bold;">import</span> statsmodels.formula.api <span style="color: #859900; font-weight: bold;">as</span> smf
+<span style="color: #859900; font-weight: bold;">from</span> tabulate <span style="color: #859900; font-weight: bold;">import</span> tabulate
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf911bfd" class="outline-4">
+<h4 id="orgf911bfd">Question 10</h4>
+<div class="outline-text-4" id="text-orgf911bfd">
+</div>
+<div id="outline-container-org9fc4fd3" class="outline-5">
+<h5 id="org9fc4fd3">Summary of <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-org9fc4fd3">
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">weekly</span> = sm.datasets.get_rdataset<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Weekly"</span>, package=<span style="color: #2aa198;">"ISLR"</span><span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>weekly.data.info<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 1089 entries, 0 to 1088
+Data columns (total 9 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Year       1089 non-null   int64
+ 1   Lag1       1089 non-null   float64
+ 2   Lag2       1089 non-null   float64
+ 3   Lag3       1089 non-null   float64
+ 4   Lag4       1089 non-null   float64
+ 5   Lag5       1089 non-null   float64
+ 6   Volume     1089 non-null   float64
+ 7   Today      1089 non-null   float64
+ 8   Direction  1089 non-null   object
+dtypes: float64(7), int64(1), object(1)
+memory usage: 76.7+ KB
+None
+</pre>
+
+<p>
+There is a non-numeric column <code>Direction</code>. We need some more detail about the
+data set to see if we can convert the non-numeric column to a numeric column.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>weekly.data.describe<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+              Year         Lag1         Lag2         Lag3         Lag4  \
+count  1089.000000  1089.000000  1089.000000  1089.000000  1089.000000
+mean   2000.048669     0.150585     0.151079     0.147205     0.145818
+std       6.033182     2.357013     2.357254     2.360502     2.360279
+min    1990.000000   -18.195000   -18.195000   -18.195000   -18.195000
+25%    1995.000000    -1.154000    -1.154000    -1.158000    -1.158000
+50%    2000.000000     0.241000     0.241000     0.241000     0.238000
+75%    2005.000000     1.405000     1.409000     1.409000     1.409000
+max    2010.000000    12.026000    12.026000    12.026000    12.026000
+
+              Lag5       Volume        Today
+count  1089.000000  1089.000000  1089.000000
+mean      0.139893     1.574618     0.149899
+std       2.361285     1.686636     2.356927
+min     -18.195000     0.087465   -18.195000
+25%      -1.166000     0.332022    -1.154000
+50%       0.234000     1.002680     0.241000
+75%       1.405000     2.053727     1.405000
+max      12.026000     9.328214    12.026000
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python">weekly.data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #268bd2;">]</span>.unique<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+<pre class="example">
+array(['Down', 'Up'], dtype=object)
+
+</pre>
+
+<p>
+So we see that the <code>Directions</code> column has only two unique values, <code>Up</code>, and
+<code>Down</code>, showing if the market was up or down. If required we can easily convert
+this to a numeric column with the map <code>Up</code>: 1, <code>Down</code>: 0. For a graphical
+summary of the data, we use either pair plots or a heat map of the correlation
+matrix.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">spm</span> = sns.pairplot<span style="color: #268bd2;">(</span>weekly.data<span style="color: #268bd2;">)</span>
+spm.fig.set_size_inches<span style="color: #268bd2;">(</span>12, 12<span style="color: #268bd2;">)</span>
+spm.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.a_pair.png"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.a_pair.png" alt="4.10.a_pair.png" />
+</p>
+</div>
+
+<p>
+I am not really seeing any pattern in the pair plots except that the lags are
+always between -10 and 10, and there does not seem to be a lot correlation
+between the different lags. The correlation matrix will help to make this more
+concrete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">corr_mat</span> = weekly.data<span style="color: #268bd2;">[</span>weekly.data.columns<span style="color: #d33682;">[</span>:-1<span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>.corr<span style="color: #268bd2;">()</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>8, 6<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">cmap</span> = sns.diverging_palette<span style="color: #268bd2;">(</span>220, 10, sep=80, n=7<span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">mask</span> = np.triu<span style="color: #268bd2;">(</span>np.ones_like<span style="color: #d33682;">(</span>corr_mat, dtype=np.<span style="color: #d33682; font-style: italic;">bool</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+
+<span style="color: #859900; font-weight: bold;">with</span> sns.axes_style<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"white"</span><span style="color: #268bd2;">)</span>:
+    sns.heatmap<span style="color: #268bd2;">(</span>corr_mat, cmap=cmap, mask=mask, robust=<span style="color: #6c71c4; font-weight: bold;">True</span>, annot=<span style="color: #6c71c4; font-weight: bold;">True</span>, ax=ax<span style="color: #268bd2;">)</span>
+
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.a_corr_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.a_corr_mat.png" alt="4.10.a_corr_mat.png" />
+</p>
+</div>
+
+<p>
+This matches the observation from the pair plots. There is a high correlation
+between <code>Year</code> and <code>Volume</code>, but everything else is mostly uncorrelated with
+each other.
+</p>
+
+<p>
+(<b>Note</b>: Constructing seaborn pair plots are somewhat computationally
+intensive. Might be better to start with the correlation matrix.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbbd7275" class="outline-5">
+<h5 id="orgbbd7275">Logistic regression with entire data set</h5>
+<div class="outline-text-5" id="text-orgbbd7275">
+<p>
+We will train a logistic regression model on the entire data set with
+<code>Direction</code> as response and <code>Lag1-5</code>, and <code>Volume</code> as predictors. We will use
+the logistic regression implementation from <code>statsmodels</code>. There are two ways of
+doing it, using <code>statsmodels.api</code> or <code>statsmodels.formula.api</code>. I like the
+elegant <code>R</code>-like formula syntax that <code>statsmodels.formula.api</code> provides, and I
+am not a big fan of the <code>exog</code> / <code>endog</code> nomenclature used by <code>statsmodels.api</code>
+(<a href="https://www.statsmodels.org/stable/endog_exog.html">endog, exog, what’s that?</a>). I will be using the <code>statsmodels.formula.api</code>
+wherever possible.
+</p>
+
+<p>
+More importantly we need to encode <code>Direction</code> as discussed earlier for
+<code>statsmodels</code> logistic regression, <code>scikit-learn</code> can work with categorical
+variables.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">weekly_data</span> = weekly.data.copy<span style="color: #268bd2;">()</span>
+<span style="color: #268bd2;">weekly_data</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #268bd2;">]</span> = weekly.data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #268bd2;">]</span>.<span style="color: #d33682; font-style: italic;">map</span><span style="color: #268bd2;">(</span><span style="color: #d33682;">{</span><span style="color: #2aa198;">"Up"</span>: 1, <span style="color: #2aa198;">"Down"</span>: 0<span style="color: #d33682;">}</span><span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">logit_model</span> = smf.logit<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume"</span>,
+                        data=weekly_data<span style="color: #268bd2;">)</span>.fit<span style="color: #268bd2;">()</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>logit_model.summary<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Optimization terminated successfully.
+         Current function value: 0.682441
+         Iterations 4
+                           Logit Regression Results
+==============================================================================
+Dep. Variable:              Direction   No. Observations:                 1089
+Model:                          Logit   Df Residuals:                     1082
+Method:                           MLE   Df Model:                            6
+Date:                Thu, 18 Jun 2020   Pseudo R-squ.:                0.006580
+Time:                        18:11:50   Log-Likelihood:                -743.18
+converged:                       True   LL-Null:                       -748.10
+Covariance Type:            nonrobust   LLR p-value:                    0.1313
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.2669      0.086      3.106      0.002       0.098       0.435
+Lag1          -0.0413      0.026     -1.563      0.118      -0.093       0.010
+Lag2           0.0584      0.027      2.175      0.030       0.006       0.111
+Lag3          -0.0161      0.027     -0.602      0.547      -0.068       0.036
+Lag4          -0.0278      0.026     -1.050      0.294      -0.080       0.024
+Lag5          -0.0145      0.026     -0.549      0.583      -0.066       0.037
+Volume        -0.0227      0.037     -0.616      0.538      -0.095       0.050
+==============================================================================
+</pre>
+
+<p>
+Among the predictor variable only the <code>Lag2</code> appear to be statistically
+significant. Even then the p-value of 0.030 it still relatively large as
+compared to p-values of statistically significant predictors that we have seen
+in previous chapters. So <code>Lag2</code> might still turn out to be statistically
+insignificant.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0773e58" class="outline-5">
+<h5 id="org0773e58">Confusion matrix of above logistic regression</h5>
+<div class="outline-text-5" id="text-org0773e58">
+<p>
+I got the idea of using percentages and labels in the heat map of the confusion
+matrix from <a href="https://medium.com/@dtuk81/confusion-matrix-visualization-fc31e3f30fea">Confusion Matrix Visualization</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">def</span> <span style="color: #b58900;">make_confusion_matrix_heatmap</span><span style="color: #268bd2;">(</span>conf_mat, categories, ax<span style="color: #268bd2;">)</span>:
+    <span style="color: #35a69c; font-style: italic;">"""</span>
+<span style="color: #35a69c; font-style: italic;">    Makes a heat map visualization of the confusion matrix.</span>
+<span style="color: #35a69c; font-style: italic;">    """</span>
+    <span style="color: #268bd2;">group_names</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"True Neg"</span>, <span style="color: #2aa198;">"False Pos"</span>, <span style="color: #2aa198;">"False Neg"</span>, <span style="color: #2aa198;">"True Pos"</span><span style="color: #268bd2;">]</span>
+    <span style="color: #268bd2;">group_counts</span> = <span style="color: #268bd2;">[</span>f<span style="color: #2aa198;">"{value:.0f}"</span> <span style="color: #859900; font-weight: bold;">for</span> value <span style="color: #859900; font-weight: bold;">in</span> conf_mat.flatten<span style="color: #d33682;">()</span><span style="color: #268bd2;">]</span>
+    <span style="color: #268bd2;">group_percentages</span> = <span style="color: #268bd2;">[</span>f<span style="color: #2aa198;">"{value:.2%}"</span> <span style="color: #859900; font-weight: bold;">for</span> value <span style="color: #859900; font-weight: bold;">in</span>
+                         conf_mat.flatten<span style="color: #d33682;">()</span>/np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #d33682;">(</span>conf_mat<span style="color: #d33682;">)</span><span style="color: #268bd2;">]</span>
+    <span style="color: #268bd2;">labels</span> = <span style="color: #268bd2;">[</span>f<span style="color: #2aa198;">"{v1}\n{v2}\n{v3}"</span> <span style="color: #859900; font-weight: bold;">for</span> v1, v2, v3 <span style="color: #859900; font-weight: bold;">in</span>
+              <span style="color: #d33682; font-style: italic;">zip</span><span style="color: #d33682;">(</span>group_names,group_counts,group_percentages<span style="color: #d33682;">)</span><span style="color: #268bd2;">]</span>
+    <span style="color: #268bd2;">labels</span> = np.asarray<span style="color: #268bd2;">(</span>labels<span style="color: #268bd2;">)</span>.reshape<span style="color: #268bd2;">(</span>2,2<span style="color: #268bd2;">)</span>
+
+    <span style="color: #859900; font-weight: bold;">with</span> sns.axes_style<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"white"</span><span style="color: #268bd2;">)</span>:
+        sns.heatmap<span style="color: #268bd2;">(</span>conf_mat, cmap=<span style="color: #2aa198;">"Blues"</span>, fmt=<span style="color: #2aa198;">""</span>, annot=labels, cbar=<span style="color: #6c71c4; font-weight: bold;">False</span>,
+                    xticklabels=categories, yticklabels=categories, ax=ax<span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">conf_mat</span> = logit_model.pred_table<span style="color: #268bd2;">(</span>0.5<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">categories</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Down"</span>, <span style="color: #2aa198;">"Up"</span><span style="color: #268bd2;">]</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat, categories=categories, ax=ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.c_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.c_conf_mat.png" alt="4.10.c_conf_mat.png" />
+</p>
+</div>
+
+<p>
+The values along the diagonal give the number of correct predictions. There were
+54 instances of both the predicted and the observed responses being <code>Down</code>, and
+557 instances of both the predicted and the observed responses being <code>Up</code> .
+There were 430 instances where the observed response was <code>Down</code>, but the model
+predicted it to be <code>Up</code>. These are the false positives. And there were 48
+instances where the observed response was <code>Up</code>, but the model predicted it to be
+<code>Down</code>. The accuracy of the model is defined as the ratio of the total number of
+correct predictions to the total number of predictions.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">accuracy</span> = <span style="color: #268bd2;">(</span>np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #d33682;">(</span>np.diag<span style="color: #859900;">(</span>conf_mat<span style="color: #859900;">)</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span> / np.<span style="color: #d33682; font-style: italic;">sum</span><span style="color: #268bd2;">(</span>conf_mat<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"Accuracy: {accuracy:.2%}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Accuracy: 56.11%
+
+</pre>
+
+<p>
+This is essentially the sum of the percentages on the diagonals in the above
+confusion matrix heat map.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7d59eb2" class="outline-5">
+<h5 id="org7d59eb2">Logistic regression with a subset of <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-org7d59eb2">
+<p>
+Now we will train the logistic regression model to predict <code>Direction</code> with only
+the data from 1990 to 2008, and with <code>Lag2</code> as the only predictor.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">weekly_training_set</span> = weekly_data<span style="color: #268bd2;">[</span>weekly_data<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Year"</span><span style="color: #d33682;">]</span>.between<span style="color: #d33682;">(</span>1990, 2008<span style="color: #d33682;">)</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">weekly_test_set</span> = weekly_data.drop<span style="color: #268bd2;">(</span>weekly_training_set.index<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">logit_model2</span> = smf.logit<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Direction ~ Lag2"</span>, data=weekly_training_set<span style="color: #268bd2;">)</span>.fit<span style="color: #268bd2;">()</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>logit_model2.summary<span style="color: #d33682;">()</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Optimization terminated successfully.
+         Current function value: 0.685555
+         Iterations 4
+                           Logit Regression Results
+==============================================================================
+Dep. Variable:              Direction   No. Observations:                  985
+Model:                          Logit   Df Residuals:                      983
+Method:                           MLE   Df Model:                            1
+Date:                Thu, 18 Jun 2020   Pseudo R-squ.:                0.003076
+Time:                        19:22:59   Log-Likelihood:                -675.27
+converged:                       True   LL-Null:                       -677.35
+Covariance Type:            nonrobust   LLR p-value:                   0.04123
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.2033      0.064      3.162      0.002       0.077       0.329
+Lag2           0.0581      0.029      2.024      0.043       0.002       0.114
+==============================================================================
+</pre>
+
+<p>
+Here we want the confusion matrix for the test set. The builtin <code>pred_table</code>
+method from <code>statsmodels</code> does not work with data that has not been used for
+training. We will use the <code>confusion_matrix</code> method from <code>sklearn.metrics</code>. An
+alternative is to use <code>numpy</code> directly, as shown <a href="https://stackoverflow.com/questions/22520964/getting-pred-table-information-for-predicted-values-of-a-model-in-statsmodels">here</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">pred</span> = np.array<span style="color: #268bd2;">(</span>logit_model2.predict<span style="color: #d33682;">(</span>weekly_test_set<span style="color: #859900;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #859900;">]</span><span style="color: #d33682;">)</span> &gt; 0.5, dtype=<span style="color: #2aa198;">"int"</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat2</span> = confusion_matrix<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>, pred<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">categories</span> = <span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Down"</span>, <span style="color: #2aa198;">"Up"</span><span style="color: #268bd2;">]</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat2, categories=categories, ax=ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.d_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.d_conf_mat.png" alt="4.10.d_conf_mat.png" />
+</p>
+</div>
+
+
+<p>
+We can see that the accuracy of this model is more (62.50%), even when it has
+not been trained on the test data set.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7b03695" class="outline-5">
+<h5 id="org7b03695">Linear discriminant analysis with a subset of <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-org7b03695">
+<p>
+We use the same training and test data sets as before but now to fit a Linear
+discriminant analysis model. We will use the linear discriminant analysis
+implementation from <code>scikit-learn</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">lda_model</span> = LinearDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+lda_model.fit<span style="color: #268bd2;">(</span>weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>,
+              weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>.values<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">preds</span> = lda_model.predict<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_lda</span> = confusion_matrix<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>, preds<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">categories</span> =<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Down"</span>, <span style="color: #2aa198;">"Up"</span><span style="color: #268bd2;">]</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_lda, categories, ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.e_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.e_conf_mat.png" alt="4.10.e_conf_mat.png" />
+</p>
+</div>
+
+<p>
+The LDA model has practically the same accuracy as the previous logistic
+regression model.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd666afc" class="outline-5">
+<h5 id="orgd666afc">Quadratic discriminant analysis with a subset of <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-orgd666afc">
+<p>
+We will repeat the above for the quadratic discriminant analysis model.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">qda_model</span> = QuadraticDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+qda_model.fit<span style="color: #268bd2;">(</span>weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>,
+              weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>.values<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">preds</span> = qda_model.predict<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_qda</span> = confusion_matrix<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>, preds<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">categories</span> =<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Down"</span>, <span style="color: #2aa198;">"Up"</span><span style="color: #268bd2;">]</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_qda, categories, ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.f_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.f_conf_mat.png" alt="4.10.f_conf_mat.png" />
+</p>
+</div>
+
+<p>
+The QDA model does not give any negative results, but now the percentage of
+false positive rivals the percentage of true positives. The accuracy has
+decreased to 58.65%.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orged94a3b" class="outline-5">
+<h5 id="orged94a3b">KNN (\(K = 1)\) with a subset of <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-orged94a3b">
+<p>
+Rinse and repeat but now with KNN for \(K = 1\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">knn_model</span> = KNeighborsClassifier<span style="color: #268bd2;">(</span>n_neighbors=1<span style="color: #268bd2;">)</span>
+knn_model.fit<span style="color: #268bd2;">(</span>weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>,
+              weekly_training_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>.values<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">preds</span> = knn_model.predict<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Lag2"</span><span style="color: #d33682;">]</span>.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_knn</span> = confusion_matrix<span style="color: #268bd2;">(</span>weekly_test_set<span style="color: #d33682;">[</span><span style="color: #2aa198;">"Direction"</span><span style="color: #d33682;">]</span>, preds<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">categories</span> =<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"Down"</span>, <span style="color: #2aa198;">"Up"</span><span style="color: #268bd2;">]</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_knn, categories, ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.10.g_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.10.g_conf_mat.png" alt="4.10.g_conf_mat.png" />
+</p>
+</div>
+
+<p>
+The KNN model with \(K = 1\) has an accuracy of 49.04%.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5a63cac" class="outline-5">
+<h5 id="org5a63cac">Best method for the <code>Weekly</code> data set</h5>
+<div class="outline-text-5" id="text-org5a63cac">
+<p>
+Logistic regression and Linear discriminant analysis appear to provide the best
+results on this data as they have the highest accuracy among the four models.
+KNN with \(K = 1\) gave the worst performance.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4962ffc" class="outline-4">
+<h4 id="org4962ffc">Question 11</h4>
+<div class="outline-text-4" id="text-org4962ffc">
+<p>
+In this question we do develop a classification model with the <code>Auto</code> data set
+to predict whether a car gets high mileage or low mileage.
+</p>
+</div>
+
+<div id="outline-container-org7e73656" class="outline-5">
+<h5 id="org7e73656">Add <code>mpg01</code> column to <code>Auto</code> data set</h5>
+<div class="outline-text-5" id="text-org7e73656">
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">auto_data</span> = sm.datasets.get_rdataset<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Auto"</span>, <span style="color: #2aa198;">"ISLR"</span><span style="color: #268bd2;">)</span>.data
+
+<span style="color: #268bd2;">median_mileage</span> = auto_data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"mpg"</span><span style="color: #268bd2;">]</span>.median<span style="color: #268bd2;">()</span>
+<span style="color: #268bd2;">auto_data</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"mpg01"</span><span style="color: #268bd2;">]</span> = np.where<span style="color: #268bd2;">(</span>auto_data<span style="color: #d33682;">[</span><span style="color: #2aa198;">"mpg"</span><span style="color: #d33682;">]</span> &gt; median_mileage, 1, 0<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>auto_data.head<span style="color: #859900;">()</span>, auto_data.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+|    |   mpg |   cylinders |   displacement |   horsepower |   weight |   acceleration |   year |   origin | name                      |   mpg01 |
+|----+-------+-------------+----------------+--------------+----------+----------------+--------+----------+---------------------------+---------|
+|  1 |    18 |           8 |            307 |          130 |     3504 |           12   |     70 |        1 | chevrolet chevelle malibu |       0 |
+|  2 |    15 |           8 |            350 |          165 |     3693 |           11.5 |     70 |        1 | buick skylark 320         |       0 |
+|  3 |    18 |           8 |            318 |          150 |     3436 |           11   |     70 |        1 | plymouth satellite        |       0 |
+|  4 |    16 |           8 |            304 |          150 |     3433 |           12   |     70 |        1 | amc rebel sst             |       0 |
+|  5 |    17 |           8 |            302 |          140 |     3449 |           10.5 |     70 |        1 | ford torino               |       0 |
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga2cabf8" class="outline-5">
+<h5 id="orga2cabf8">Graphical exploration of the new data set</h5>
+<div class="outline-text-5" id="text-orga2cabf8">
+<p>
+We want to graphically see how does <code>mpg01</code> associate with the other features in
+our modified <code>Auto</code> data set. For this purpose we will use correlation matrix
+and boxplots. We can also use paired scatterplots (pairplots in <code>seaborn</code>
+parlance), but as I mentioned earlier <code>seaborn</code>'s implementation of pairplots is
+quite computationally intensive and so far I have not seen it provide any
+information for classification problems that correlation matrix does not.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">corr_mat</span> = auto_data<span style="color: #268bd2;">[</span>auto_data.columns<span style="color: #d33682;">[</span>1:<span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>.corr<span style="color: #268bd2;">()</span>
+
+<span style="color: #268bd2;">cmap</span> = <span style="color: #2aa198;">"RdBu"</span>
+<span style="color: #268bd2;">mask</span> = np.triu<span style="color: #268bd2;">(</span>np.ones_like<span style="color: #d33682;">(</span>corr_mat, dtype=np.<span style="color: #d33682; font-style: italic;">bool</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>8, 6<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">with</span> sns.axes_style<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"white"</span><span style="color: #268bd2;">)</span>:
+    sns.heatmap<span style="color: #268bd2;">(</span>corr_mat, cmap=cmap, mask=mask, annot=<span style="color: #6c71c4; font-weight: bold;">True</span>, robust=<span style="color: #6c71c4; font-weight: bold;">True</span>, ax=ax<span style="color: #268bd2;">)</span>
+
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.b_corr_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.b_corr_mat.png" alt="4.11.b_corr_mat.png" />
+</p>
+</div>
+
+<p>
+We see that <code>mpg01</code> has high negative correlation with <code>cylinders</code>,
+<code>displacement</code>, <code>horsepower</code>, and <code>weight</code>. These features also high correlation
+with each other, for example <code>displacement</code> and <code>cylinders</code> have a correlation
+of 0.95. This means if our model includes <code>displacement</code> then we do not gain any
+new information by adding <code>cylinders</code> to it. Presumably we will be able to
+predict <code>mpg01</code> with just <code>horsepower</code>, one of <code>displacement</code>, <code>cylinders</code> and
+<code>weight</code>, and maybe <code>origin</code>.
+</p>
+
+<p>
+Let us now see what boxplots tell us.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">axs</span> = plt.subplots<span style="color: #268bd2;">(</span>4, 2, figsize=<span style="color: #d33682;">(</span>12, 10<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"cylinders"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>0, 0<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"displacement"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"horsepower"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>1, 0<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"weight"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>1, 1<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"acceleration"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>2, 0<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"year"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>2, 1<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+sns.boxplot<span style="color: #268bd2;">(</span>y=<span style="color: #2aa198;">"origin"</span>, x=<span style="color: #2aa198;">"mpg01"</span>, data=auto_data, ax=axs<span style="color: #d33682;">[</span>3, 0<span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.b_box_plots.png"</span><span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.b_box_plots.png" alt="4.11.b_box_plots.png" />
+</p>
+</div>
+
+<p>
+We see that having more cylinders (or displacement or horsepower or weight)
+generally gives you low mileage. The <code>origin</code> really does not matter, since
+except for a few outliers all have a <code>mpg01</code> of 1. And as far as <code>year</code> and
+<code>acceleration</code> are concerned, there are a fair bit of overlap between the
+<code>mpg01</code> = 0 and <code>mpg01</code> = 1 groups, and it is difficult to draw any clear
+conclusion from them. This essentially corroborates what we had learned from the
+correlation matrix.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc74b39c" class="outline-5">
+<h5 id="orgc74b39c">Training and test sets</h5>
+<div class="outline-text-5" id="text-orgc74b39c">
+<p>
+We will use <code>scikit-learn</code>'s <code>train_test_split</code> to create training and test
+sets.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">X</span> = auto_data<span style="color: #268bd2;">[</span><span style="color: #d33682;">[</span><span style="color: #2aa198;">"cylinders"</span>, <span style="color: #2aa198;">"displacement"</span>, <span style="color: #2aa198;">"horsepower"</span>, <span style="color: #2aa198;">"weight"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">y</span> = auto_data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"mpg01"</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">train_X</span>, <span style="color: #268bd2;">test_X</span>, <span style="color: #268bd2;">train_y</span>, <span style="color: #268bd2;">test_y</span> = train_test_split<span style="color: #268bd2;">(</span>X, y, random_state=42<span style="color: #268bd2;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf374568" class="outline-5">
+<h5 id="orgf374568">Linear discriminant analysis for <code>mpg01</code></h5>
+<div class="outline-text-5" id="text-orgf374568">
+<p>
+The question asks us to use all the features that seemed most associated with
+<code>mpg01</code>. Even though I mentioned that the high correlation between <code>cylinders</code>,
+<code>displacement</code>, and <code>weight</code> means that only one of them will be sufficient, we
+will still use all of them here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">lda_model</span> = LinearDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+lda_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">test_pred</span> = lda_model.predict<span style="color: #268bd2;">(</span>test_X<span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat</span> = confusion_matrix<span style="color: #268bd2;">(</span>test_pred, test_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat, <span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>, ax<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.d_conf_mat.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.d_conf_mat.png" alt="4.11.d_conf_mat.png" />
+</p>
+</div>
+
+<p>
+This model has a very high accuracy of 88.78%. Or in other words the test error
+is ≈ 0.11. Just for curiosity I want to try a model with just <code>cylinders</code> as the
+predictor.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">train_X_cyl</span> = train_X<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"cylinders"</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">test_X_cyl</span> = test_X<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"cylinders"</span><span style="color: #268bd2;">]</span>
+
+<span style="color: #268bd2;">lda_model_cyl</span> = LinearDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+lda_model_cyl.fit<span style="color: #268bd2;">(</span>train_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">test_pred_cyl</span> = lda_model_cyl.predict<span style="color: #268bd2;">(</span>test_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_cyl</span> = confusion_matrix<span style="color: #268bd2;">(</span>test_pred_cyl, test_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_cyl, <span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>, ax<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.d_conf_mat_cyl.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.d_conf_mat_cyl.png" alt="4.11.d_conf_mat_cyl.png" />
+</p>
+</div>
+
+<p>
+This model has a comparable accuracy of 87.76% (test error ≈ 0.12), the true
+positives decreased by 1, while the false positives increased by 1. Essentially
+we got the same result with a single feature as we did by using four features.
+So the other features are indeed superfluous.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f1532f" class="outline-5">
+<h5 id="org8f1532f">Quadratic discriminant analysis for <code>mpg01</code></h5>
+<div class="outline-text-5" id="text-org8f1532f">
+<p>
+Following the realization made in the previous question, I will use only
+<code>cylinders</code> for prediction using quadratic discriminant analysis.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">qda_model_cyl</span> = QuadraticDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+qda_model_cyl.fit<span style="color: #268bd2;">(</span>train_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">test_pred_cyl</span> = qda_model_cyl.predict<span style="color: #268bd2;">(</span>test_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_cyl_qda</span> = confusion_matrix<span style="color: #268bd2;">(</span>test_pred_cyl, test_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_cyl_qda, <span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>, ax<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.d_conf_mat_cyl_qda.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.d_conf_mat_cyl_qda.png" alt="4.11.d_conf_mat_cyl_qda.png" />
+</p>
+</div>
+
+<p>
+This model has the same accuracy as the LDA model with just <code>cylinders</code>. For
+completeness I will also try a second model with the other features.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">qda_model</span> = QuadraticDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+qda_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">test_pred</span> = qda_model.predict<span style="color: #268bd2;">(</span>test_X<span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_qda</span> = confusion_matrix<span style="color: #268bd2;">(</span>test_pred, test_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_qda, <span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>, ax<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.d_conf_mat_qda.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.d_conf_mat_qda.png" alt="4.11.d_conf_mat_qda.png" />
+</p>
+</div>
+
+<p>
+The accuracy did not change.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3900c62" class="outline-5">
+<h5 id="org3900c62">Logistic regression for <code>mpg01</code></h5>
+<div class="outline-text-5" id="text-org3900c62">
+<p>
+Since we are not interested in the summary of the logistic regression model, we
+will use <code>scikit-learn</code>'s implementation of logistic regression. In fact this
+will be template by which we decide whether to use <code>statsmodels</code> or
+<code>scikit-learn</code>: If we are more interested in the statistical summary of the
+model then we will <code>statsmodels</code>. If we are more interested in predictions then
+we will use <code>scikit-learn</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">logit_model</span> = LogisticRegression<span style="color: #268bd2;">()</span>
+logit_model.fit<span style="color: #268bd2;">(</span>train_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">test_pred</span> = logit_model.predict<span style="color: #268bd2;">(</span>test_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">conf_mat_logit</span> = confusion_matrix<span style="color: #268bd2;">(</span>test_pred, test_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>4, 4<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+make_confusion_matrix_heatmap<span style="color: #268bd2;">(</span>conf_mat_logit, <span style="color: #d33682;">[</span>0, 1<span style="color: #d33682;">]</span>, ax<span style="color: #268bd2;">)</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.11.d_conf_mat_logit.png"</span>, dpi=90<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.11.d_conf_mat_logit.png" alt="4.11.d_conf_mat_logit.png" />
+</p>
+</div>
+
+<p>
+Same accuracy as the QDA model.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga252ad3" class="outline-5">
+<h5 id="orga252ad3">KNN for <code>mpg01</code></h5>
+<div class="outline-text-5" id="text-orga252ad3">
+<p>
+We will try KNN with \(K ∈ \{1, 10, 100\}\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">for</span> k <span style="color: #859900; font-weight: bold;">in</span> np.logspace<span style="color: #268bd2;">(</span>0, 2, num=3, dtype=<span style="color: #d33682; font-style: italic;">int</span><span style="color: #268bd2;">)</span>:
+    <span style="color: #268bd2;">knn_model</span> = KNeighborsClassifier<span style="color: #268bd2;">(</span>n_neighbors=k<span style="color: #268bd2;">)</span>
+    knn_model.fit<span style="color: #268bd2;">(</span>train_X_cyl.values<span style="color: #d33682;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #d33682;">]</span>, train_y<span style="color: #268bd2;">)</span>
+    <span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>knn_model.predict<span style="color: #d33682;">(</span>test_X_cyl.values<span style="color: #859900;">[</span>:, <span style="color: #6c71c4; font-weight: bold;">None</span><span style="color: #859900;">]</span><span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"K: {k:3}, Accuracy: {acc:.2%}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+K:   1, Accuracy: 87.76%, Test error: 0.12
+K:  10, Accuracy: 87.76%, Test error: 0.12
+K: 100, Accuracy: 87.76%, Test error: 0.12
+
+</pre>
+
+<p>
+We get the same accuracy for all the three values of \(K\). We will try this
+again including the other features.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">for</span> k <span style="color: #859900; font-weight: bold;">in</span> np.logspace<span style="color: #268bd2;">(</span>0, 2, num=3, dtype=<span style="color: #d33682; font-style: italic;">int</span><span style="color: #268bd2;">)</span>:
+    <span style="color: #268bd2;">knn_model</span> = KNeighborsClassifier<span style="color: #268bd2;">(</span>n_neighbors=k<span style="color: #268bd2;">)</span>
+    knn_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+    <span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>knn_model.predict<span style="color: #d33682;">(</span>test_X<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"K: {k:3}, Accuracy: {acc:.2%}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+K:   1, Accuracy: 83.67%, Test error: 0.16
+K:  10, Accuracy: 85.71%, Test error: 0.14
+K: 100, Accuracy: 85.71%, Test error: 0.14
+
+</pre>
+
+<p>
+We see that for \(K = 10, 100\) the accuracy is better compared to
+the \(K = 1\) case. However the accuracy has in fact decreased from the previous
+model with just <code>cylinder</code> as the predictor. This is most likely due to the
+"curse of dimensionality". This an empirical "proof" that for KNN
+low-dimensional models, whenever possible, are better.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6d3e7a9" class="outline-4">
+<h4 id="org6d3e7a9">Question 13</h4>
+<div class="outline-text-4" id="text-org6d3e7a9">
+<p>
+In this question we will predict if a given suburb of Boston has a crime rate
+above or below the median crime rate using the <code>Boston</code> data set. We will
+explore logistic regression, LDA and KNN models. This is very similar to the
+question above. We will start with some graphical explorations.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">boston_data</span> = sm.datasets.get_rdataset<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"Boston"</span>, <span style="color: #2aa198;">"MASS"</span><span style="color: #268bd2;">)</span>.data
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>tabulate<span style="color: #d33682;">(</span>boston_data.head<span style="color: #859900;">()</span>, boston_data.columns, tablefmt=<span style="color: #2aa198;">"orgtbl"</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+|    |    crim |   zn |   indus |   chas |   nox |    rm |   age |    dis |   rad |   tax |   ptratio |   black |   lstat |   medv |
+|----+---------+------+---------+--------+-------+-------+-------+--------+-------+-------+-----------+---------+---------+--------|
+|  0 | 0.00632 |   18 |    2.31 |      0 | 0.538 | 6.575 |  65.2 | 4.09   |     1 |   296 |      15.3 |  396.9  |    4.98 |   24   |
+|  1 | 0.02731 |    0 |    7.07 |      0 | 0.469 | 6.421 |  78.9 | 4.9671 |     2 |   242 |      17.8 |  396.9  |    9.14 |   21.6 |
+|  2 | 0.02729 |    0 |    7.07 |      0 | 0.469 | 7.185 |  61.1 | 4.9671 |     2 |   242 |      17.8 |  392.83 |    4.03 |   34.7 |
+|  3 | 0.03237 |    0 |    2.18 |      0 | 0.458 | 6.998 |  45.8 | 6.0622 |     3 |   222 |      18.7 |  394.63 |    2.94 |   33.4 |
+|  4 | 0.06905 |    0 |    2.18 |      0 | 0.458 | 7.147 |  54.2 | 6.0622 |     3 |   222 |      18.7 |  396.9  |    5.33 |   36.2 |
+
+</pre>
+
+<p>
+As we did in the previous question we will create a column <code>crim01</code> which is 0
+if the crime rate is less than the median crime rate and 1 otherwise.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">median_crim</span> = boston_data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"crim"</span><span style="color: #268bd2;">]</span>.median<span style="color: #268bd2;">()</span>
+<span style="color: #268bd2;">boston_data</span><span style="color: #268bd2;">[</span><span style="color: #2aa198;">"crim01"</span><span style="color: #268bd2;">]</span> = np.where<span style="color: #268bd2;">(</span>boston_data<span style="color: #d33682;">[</span><span style="color: #2aa198;">"crim"</span><span style="color: #d33682;">]</span> &gt; median_crim, 1, 0<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">corr_mat</span> = boston_data<span style="color: #268bd2;">[</span>boston_data.columns<span style="color: #d33682;">[</span>1:<span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>.corr<span style="color: #268bd2;">()</span>
+<span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">(</span>figsize=<span style="color: #d33682;">(</span>10, 8<span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+<span style="color: #268bd2;">cmap</span> = <span style="color: #2aa198;">"RdBu"</span>
+<span style="color: #268bd2;">mask</span> = np.triu<span style="color: #268bd2;">(</span>np.ones_like<span style="color: #d33682;">(</span>corr_mat, dtype=np.<span style="color: #d33682; font-style: italic;">bool</span><span style="color: #d33682;">)</span><span style="color: #268bd2;">)</span>
+sns.heatmap<span style="color: #268bd2;">(</span>corr_mat, cmap=cmap, mask=mask, annot=<span style="color: #6c71c4; font-weight: bold;">True</span>, robust=<span style="color: #6c71c4; font-weight: bold;">True</span>, ax=ax<span style="color: #268bd2;">)</span>
+plt.tight_layout<span style="color: #268bd2;">()</span>
+fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"img/4.13_corr_mat.png"</span>, dpi=120<span style="color: #268bd2;">)</span>
+plt.close<span style="color: #268bd2;">()</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/4.13_corr_mat.png" alt="4.13_corr_mat.png" />
+</p>
+</div>
+
+<p>
+We see that <code>crim01</code> has appreciable positive correlation with the <code>indus</code>,
+<code>nox</code>, <code>age</code>, <code>rad</code>, and <code>tax</code> features and appreciable negative correlation
+with the <code>dis</code> feature. We will use these features to predict <code>crim01</code>.
+</p>
+
+<p>
+We will split the data set into training and test sets and then try the
+different models.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">X</span> = boston_data<span style="color: #268bd2;">[</span><span style="color: #d33682;">[</span><span style="color: #2aa198;">"indus"</span>, <span style="color: #2aa198;">"nox"</span>, <span style="color: #2aa198;">"age"</span>, <span style="color: #2aa198;">"rad"</span>, <span style="color: #2aa198;">"tax"</span>, <span style="color: #2aa198;">"dis"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">y</span> = boston_data<span style="color: #268bd2;">[</span><span style="color: #2aa198;">"crim01"</span><span style="color: #268bd2;">]</span>
+
+<span style="color: #268bd2;">train_X</span>, <span style="color: #268bd2;">test_X</span>, <span style="color: #268bd2;">train_y</span>, <span style="color: #268bd2;">test_y</span> = train_test_split<span style="color: #268bd2;">(</span>X, y, random_state=42<span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<p>
+<b>Logistic Regression</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">logit_model</span> = LogisticRegression<span style="color: #268bd2;">()</span>
+logit_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>logit_model.predict<span style="color: #d33682;">(</span>test_X<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Accuracy: 0.81, Test error: 0.19
+
+</pre>
+
+<p>
+<b>Linear Discriminant Analysis</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">lda_model</span> = LinearDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+lda_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>lda_model.predict<span style="color: #d33682;">(</span>test_X<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Accuracy: 0.83, Test error: 0.17
+
+</pre>
+
+<p>
+<b>KNN</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">for</span> k <span style="color: #859900; font-weight: bold;">in</span> np.logspace<span style="color: #268bd2;">(</span>0, 2, num=3, dtype=<span style="color: #d33682; font-style: italic;">int</span><span style="color: #268bd2;">)</span>:
+    <span style="color: #268bd2;">knn_model</span> = KNeighborsClassifier<span style="color: #268bd2;">(</span>n_neighbors=k<span style="color: #268bd2;">)</span>
+    knn_model.fit<span style="color: #268bd2;">(</span>train_X, train_y<span style="color: #268bd2;">)</span>
+    <span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>knn_model.predict<span style="color: #d33682;">(</span>test_X<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"K: {k:3}, Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+K:   1, Accuracy: 0.85, Test error: 0.15
+K:  10, Accuracy: 0.87, Test error: 0.13
+K: 100, Accuracy: 0.79, Test error: 0.21
+
+</pre>
+
+<p>
+<b>Reduced data set</b>
+</p>
+
+<p>
+We see that the KNN model with \(K = 10\) had the highest accuracy over the test
+set. This was with the features <code>indus</code>, <code>nox</code>, <code>age</code>, <code>rad</code>, <code>tax</code>, and <code>dis</code>.
+From the correlation matrix we see that <code>tax</code> and <code>rad</code> has a very high
+correlation (0.91). Similarly <code>nox</code> has high correlations with <code>indus</code> (0.76),
+<code>age</code> (0.73), and <code>dis</code> (-0.77); <code>age</code> and <code>dis</code> (-0.75) also have high
+correlations. We know that the KNN model suffers from the curse of
+dimensionality. If we remove some of these highly correlated features from the
+training data set, maybe the accuracy of the KNN models will increase further.
+While we are at it we will also try training the logistic regression and LDA
+models with the reduced data set.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #268bd2;">train_X_reduced</span> = train_X<span style="color: #268bd2;">[</span><span style="color: #d33682;">[</span><span style="color: #2aa198;">"indus"</span>, <span style="color: #2aa198;">"dis"</span>, <span style="color: #2aa198;">"tax"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>
+<span style="color: #268bd2;">test_X_reduced</span> = test_X<span style="color: #268bd2;">[</span><span style="color: #d33682;">[</span><span style="color: #2aa198;">"indus"</span>, <span style="color: #2aa198;">"dis"</span>, <span style="color: #2aa198;">"tax"</span><span style="color: #d33682;">]</span><span style="color: #268bd2;">]</span>
+
+<span style="color: #268bd2;">logit_model</span> = LogisticRegression<span style="color: #268bd2;">()</span>
+logit_model.fit<span style="color: #268bd2;">(</span>train_X_reduced, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>logit_model.predict<span style="color: #d33682;">(</span>test_X_reduced<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"Logistic regression: Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">lda_model</span> = LinearDiscriminantAnalysis<span style="color: #268bd2;">()</span>
+lda_model.fit<span style="color: #268bd2;">(</span>train_X_reduced, train_y<span style="color: #268bd2;">)</span>
+
+<span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>lda_model.predict<span style="color: #d33682;">(</span>test_X_reduced<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"LDA: Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+
+<span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span><span style="color: #2aa198;">"KNN:"</span><span style="color: #268bd2;">)</span>
+<span style="color: #859900; font-weight: bold;">for</span> k <span style="color: #859900; font-weight: bold;">in</span> np.logspace<span style="color: #268bd2;">(</span>0, 2, num=3, dtype=<span style="color: #d33682; font-style: italic;">int</span><span style="color: #268bd2;">)</span>:
+    <span style="color: #268bd2;">knn_model</span> = KNeighborsClassifier<span style="color: #268bd2;">(</span>n_neighbors=k<span style="color: #268bd2;">)</span>
+    knn_model.fit<span style="color: #268bd2;">(</span>train_X_reduced, train_y<span style="color: #268bd2;">)</span>
+    <span style="color: #268bd2;">acc</span> = accuracy_score<span style="color: #268bd2;">(</span>knn_model.predict<span style="color: #d33682;">(</span>test_X_reduced<span style="color: #d33682;">)</span>, test_y<span style="color: #268bd2;">)</span>
+    <span style="color: #859900; font-weight: bold;">print</span><span style="color: #268bd2;">(</span>f<span style="color: #2aa198;">"K: {k:3}, Accuracy: {acc:.2f}, Test error: {1 - acc:.2f}"</span><span style="color: #268bd2;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Logistic regression: Accuracy: 0.79, Test error: 0.21
+LDA: Accuracy: 0.80, Test error: 0.20
+KNN:
+K:   1, Accuracy: 0.91, Test error: 0.09
+K:  10, Accuracy: 0.87, Test error: 0.13
+K: 100, Accuracy: 0.80, Test error: 0.20
+
+</pre>
+
+<p>
+This is an interesting result. The accuracy of both the logistic regression and
+the LDA models decreased with the reduced data set. But the accuracy of all the
+KNN models increased, and the model with \(K = 1\) now has the highest accuracy.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-05-30 Sat 13:57 -->
+<!-- 2020-06-18 Thu 17:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linear Regression</title>
@@ -41,7 +41,7 @@
 <ul>
 <li><a href="#org8f9e163">Simple linear regression on <code>Auto</code> data set</a></li>
 <li><a href="#org550c2ad">Least squares plot</a></li>
-<li><a href="#orgb4551c0">Diagnostic plots</a></li>
+<li><a href="#org495426b">Diagnostic plots</a></li>
 </ul>
 </li>
 <li><a href="#org36d602c">Question 9</a>
@@ -49,7 +49,7 @@
 <li><a href="#org3a9ad3d">Scatter plot matrix of <code>Auto</code> data set</a></li>
 <li><a href="#org61e1d86">Correlation matrix</a></li>
 <li><a href="#org3925d51">Multiple linear regression with <code>Auto</code> data set</a></li>
-<li><a href="#org495426b">Diagnostic plots</a></li>
+<li><a href="#org39306ad">Diagnostic plots</a></li>
 <li><a href="#org72f6214">Interaction effects</a></li>
 <li><a href="#org1f3ccc0">Models with variable transformations</a></li>
 </ul>
@@ -440,9 +440,9 @@ fig.savefig<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"
 </div>
 </div>
 
-<div id="outline-container-orgb4551c0" class="outline-4">
-<h4 id="orgb4551c0">Diagnostic plots</h4>
-<div class="outline-text-4" id="text-orgb4551c0">
+<div id="outline-container-org495426b" class="outline-4">
+<h4 id="org495426b">Diagnostic plots</h4>
+<div class="outline-text-4" id="text-org495426b">
 <p>
 The <code>R</code> command <code>plot</code> in this case gives four diagnostic plots:
 </p>
@@ -467,8 +467,8 @@ We will produce these plots using <code>statsmodels</code> and <code>seaborn</co
 </div>
 
 <ul class="org-ul">
-<li><a id="orgce275c7"></a>Residuals vs Fitted plot<br />
-<div class="outline-text-5" id="text-orgce275c7">
+<li><a id="org5f54867"></a>Residuals vs Fitted plot<br />
+<div class="outline-text-5" id="text-org5f54867">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #268bd2;">fitted_vals</span> = model.fittedvalues
 
@@ -497,8 +497,8 @@ This plot clearly shows that there is non-linearity in the data.
 </div>
 </li>
 
-<li><a id="org580e2db"></a>Normal Q-Q plot<br />
-<div class="outline-text-5" id="text-org580e2db">
+<li><a id="org8c31417"></a>Normal Q-Q plot<br />
+<div class="outline-text-5" id="text-org8c31417">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">import</span> statsmodels.api <span style="color: #859900; font-weight: bold;">as</span> sm
 
@@ -527,8 +527,8 @@ normally distributed.
 </div>
 </li>
 
-<li><a id="org2f1fba4"></a>Scale-Location plot<br />
-<div class="outline-text-5" id="text-org2f1fba4">
+<li><a id="org89acfd1"></a>Scale-Location plot<br />
+<div class="outline-text-5" id="text-org89acfd1">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #96A7A9; font-style: italic;"># </span><span style="color: #96A7A9; font-style: italic;">normalized residuals and their square roots</span>
 <span style="color: #268bd2;">norm_residuals</span> = model.get_influence<span style="color: #268bd2;">()</span>.resid_studentized_internal
@@ -561,8 +561,8 @@ variance is not constant.
 </div>
 </li>
 
-<li><a id="org8d1e12e"></a>Residuals vs Leverage plot<br />
-<div class="outline-text-5" id="text-org8d1e12e">
+<li><a id="orga439d17"></a>Residuals vs Leverage plot<br />
+<div class="outline-text-5" id="text-orga439d17">
 <div class="org-src-container">
 <pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">()</span>
@@ -731,17 +731,17 @@ increases by <code>0.7508</code>, i.e. the cars become more fuel-efficient every
 </div>
 </div>
 
-<div id="outline-container-org495426b" class="outline-4">
-<h4 id="org495426b">Diagnostic plots</h4>
-<div class="outline-text-4" id="text-org495426b">
+<div id="outline-container-org39306ad" class="outline-4">
+<h4 id="org39306ad">Diagnostic plots</h4>
+<div class="outline-text-4" id="text-org39306ad">
 <p>
 We make the same diagnostic plots as the previous exercise.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org5f54867"></a>Residuals vs Fitted plot<br />
-<div class="outline-text-5" id="text-org5f54867">
+<li><a id="org74e361f"></a>Residuals vs Fitted plot<br />
+<div class="outline-text-5" id="text-org74e361f">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #268bd2;">fitted_vals</span> = ml_model.fittedvalues
 
@@ -770,8 +770,8 @@ This plot clearly shows that there is non-linearity in the data.
 </div>
 </li>
 
-<li><a id="org8c31417"></a>Normal Q-Q plot<br />
-<div class="outline-text-5" id="text-org8c31417">
+<li><a id="org6aca739"></a>Normal Q-Q plot<br />
+<div class="outline-text-5" id="text-org6aca739">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #859900; font-weight: bold;">import</span> statsmodels.api <span style="color: #859900; font-weight: bold;">as</span> sm
 
@@ -800,8 +800,8 @@ normally distributed.
 </div>
 </li>
 
-<li><a id="org89acfd1"></a>Scale-Location plot<br />
-<div class="outline-text-5" id="text-org89acfd1">
+<li><a id="org8b20776"></a>Scale-Location plot<br />
+<div class="outline-text-5" id="text-org8b20776">
 <div class="org-src-container">
 <pre class="src src-jupyter-python"><span style="color: #96A7A9; font-style: italic;"># </span><span style="color: #96A7A9; font-style: italic;">normalized residuals and their square roots</span>
 <span style="color: #268bd2;">norm_residuals</span> = ml_model.get_influence<span style="color: #268bd2;">()</span>.resid_studentized_internal
@@ -834,8 +834,8 @@ homoscedasticity is not held.
 </div>
 </li>
 
-<li><a id="orga439d17"></a>Residuals vs Leverage plot<br />
-<div class="outline-text-5" id="text-orga439d17">
+<li><a id="orgb5cedb0"></a>Residuals vs Leverage plot<br />
+<div class="outline-text-5" id="text-orgb5cedb0">
 <div class="org-src-container">
 <pre class="src src-jupyter-python">plt.close<span style="color: #268bd2;">(</span><span style="color: #2aa198;">"all"</span><span style="color: #268bd2;">)</span>
 <span style="color: #268bd2;">fig</span>, <span style="color: #268bd2;">ax</span> = plt.subplots<span style="color: #268bd2;">()</span>
